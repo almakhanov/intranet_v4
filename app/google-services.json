@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "242396391684",
+    "firebase_url": "https://intranetv4-b39be.firebaseio.com",
+    "project_id": "intranetv4-b39be",
+    "storage_bucket": "intranetv4-b39be.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:242396391684:android:b204147a65cf4bfa",
+        "android_client_info": {
+          "package_name": "kz.batana.intranet_v4"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "242396391684-g1356dlsuahh9r810cb10mk7o1724npb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "kz.batana.intranet_v4",
+            "certificate_hash": "2e35179973823dbfce2a65254dc6a332011f2c44"
+          }
+        },
+        {
+          "client_id": "242396391684-15i9ef6ulhb6pfa6l9rhgsk9uo411oc5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3aJ-zrNVP5QpnNlQ7VQnMC7EnfYyxqEs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "242396391684-15i9ef6ulhb6pfa6l9rhgsk9uo411oc5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
