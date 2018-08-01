@@ -8,14 +8,16 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_sign_up.*
+import kz.batana.intranet_v4.App.Companion.roleOfUser
 import kz.batana.intranet_v4.AppConstants.ADMIN
 import kz.batana.intranet_v4.AppConstants.STUDENT
 import kz.batana.intranet_v4.AppConstants.TEACHER
 import kz.batana.intranet_v4.R
+import kz.batana.intranet_v4.ui.admin_page.AdminMainActivity
 import kz.batana.intranet_v4.ui.student_page.StudentMainActivity
+import kz.batana.intranet_v4.ui.teacher_page.TeacherMainActivity
 
-class SignUpActivity : AppCompatActivity(), SignUpMVP.View, SignUpMVP.StudentFragmentListener {
-
+class SignUpActivity : AppCompatActivity(), SignUpMVP.View, SignUpMVP.StudentFragmentListener, SignUpMVP.AdminFragmentListener, SignUpMVP.TeacherFragmentListener {
 
     private val presenter : SignUpPresenter by lazy{ SignUpPresenter(this) }
 
@@ -23,6 +25,7 @@ class SignUpActivity : AppCompatActivity(), SignUpMVP.View, SignUpMVP.StudentFra
     private lateinit var teacherFragment: SignUpTeacherFragment
     private lateinit var adminFragment: SignUpAdminFragment
 
+    private var currentSignUpper = STUDENT
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,13 +73,16 @@ class SignUpActivity : AppCompatActivity(), SignUpMVP.View, SignUpMVP.StudentFra
             R.id.item_sign_up_done -> {
                 when(getCurrentSignUpper(view_pager_sign_up.currentItem)){
                     STUDENT -> {
+                        currentSignUpper = STUDENT
                         studentsFragment.getStudentData()
                     }
                     TEACHER -> {
-
+                        currentSignUpper = TEACHER
+                        teacherFragment.getTeacherData()
                     }
                     ADMIN -> {
-
+                        currentSignUpper = ADMIN
+                        adminFragment.getAdminData()
                     }
                 }
                 true
@@ -93,9 +99,29 @@ class SignUpActivity : AppCompatActivity(), SignUpMVP.View, SignUpMVP.StudentFra
         presenter.checkStudentData(name, age, yearOfStudy, username, password, confirmPassword)
     }
 
+    override fun checkAdminData(name: String, age: String, username: String, password: String, confirmPassword: String, secretCode: String) {
+        presenter.checkAdminData(name, age, username, password, confirmPassword, secretCode)
+    }
+
+    override fun checkTeacherData(name: String, age: String, degree: String, username: String, password: String, confirmPassword: String, secretCode: String) {
+        presenter.checkTeacherData(name, age, degree, username, password, confirmPassword, secretCode)
+    }
+
+
     override fun onSuccess() {
         msg("Success!")
-        startActivity(Intent(this, StudentMainActivity::class.java))
+        when(roleOfUser){
+            STUDENT -> {
+                startActivity(Intent(this, StudentMainActivity::class.java))
+            }
+            TEACHER -> {
+                startActivity(Intent(this, TeacherMainActivity::class.java))
+            }
+            ADMIN -> {
+                startActivity(Intent(this, AdminMainActivity::class.java))
+            }
+        }
+        finish()
     }
 
     private fun getCurrentSignUpper(currentSignUpper: Int) : String{
@@ -104,5 +130,9 @@ class SignUpActivity : AppCompatActivity(), SignUpMVP.View, SignUpMVP.StudentFra
             1 -> TEACHER
             else -> ADMIN
         }
+    }
+
+    override fun getCurrentSignUpper() : String{
+        return currentSignUpper
     }
 }
