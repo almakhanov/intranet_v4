@@ -7,11 +7,23 @@
     tools:context=".ui.student_page.StudentMainActivity">
 
     <TextView
+        android:id="@+id/text_student_main_testing"
+        android:text="JUST TESTING"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:textSize="36dp"
+        android:textColor="@color/colorAccent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
         android:id="@+id/text_student_main"
         android:text="no yet"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:textSize="36dp"
+        app:layout_constraintTop_toBottomOf="@id/text_student_main_testing"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
