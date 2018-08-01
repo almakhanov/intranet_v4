@@ -89,7 +89,7 @@ class SignUpActivity : AppCompatActivity(), SignUpMVP.View, SignUpMVP.StudentFra
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
-    override fun checkStudentData(name: String, age: Int, yearOfStudy: Int, username: String, password: String, confirmPassword: String) {
+    override fun checkStudentData(name: String, age: String, yearOfStudy: String, username: String, password: String, confirmPassword: String) {
         presenter.checkStudentData(name, age, yearOfStudy, username, password, confirmPassword)
     }
 

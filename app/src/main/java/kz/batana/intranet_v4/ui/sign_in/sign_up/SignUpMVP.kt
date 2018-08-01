@@ -11,7 +11,7 @@ interface SignUpMVP {
     }
 
     interface StudentFragmentListener{
-        fun checkStudentData(name: String, age: Int, yearOfStudy: Int, username: String, password: String, confirmPassword: String)
+        fun checkStudentData(name: String, age: String, yearOfStudy: String, username: String, password: String, confirmPassword: String)
     }
 
     interface TeacherFragmentListener{
@@ -23,7 +23,7 @@ interface SignUpMVP {
     }
 
     interface Presenter{
-        fun checkStudentData(name: String, age: Int, yearOfStudy: Int, username: String, password: String, confirmPassword: String)
+        fun checkStudentData(name: String, age: String, yearOfStudy: String, username: String, password: String, confirmPassword: String)
         fun onSuccess()
         fun onFailed(exception: Exception)
     }

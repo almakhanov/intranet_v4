@@ -39,8 +39,8 @@ class SignUpStudentFragment : Fragment() {
     }
 
     fun getStudentData(){
-        listener?.checkStudentData(edit_text_sign_up_student_name.text.toString(), edit_text_sign_up_student_age.text.toString().toInt(),
-                edit_text_sign_up_student_year.text.toString().toInt(), edit_text_sign_up_student_username.text.toString(),
+        listener?.checkStudentData(edit_text_sign_up_student_name.text.toString(), edit_text_sign_up_student_age.text.toString(),
+                edit_text_sign_up_student_year.text.toString(), edit_text_sign_up_student_username.text.toString(),
                 edit_text_sign_up_student_password.text.toString(), edit_text_sign_up_student_confirm_password.text.toString())
     }
 

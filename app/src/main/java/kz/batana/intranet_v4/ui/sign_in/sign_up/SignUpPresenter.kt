@@ -12,14 +12,14 @@ class SignUpPresenter(private val view: SignUpMVP.View) : SignUpMVP.Presenter {
     private var newStudent = Student()
     private var newUser = User()
 
-    override fun checkStudentData(name: String, age: Int, yearOfStudy: Int, username: String, password: String,
+    override fun checkStudentData(name: String, age: String, yearOfStudy: String, username: String, password: String,
                                   confirmPassword: String) {
-        if(username.isEmpty() || name.isEmpty() || age <= 0 || yearOfStudy <= 0 || password.isEmpty() || confirmPassword.isEmpty()){
+        if(username.isEmpty() || name.isEmpty() || age.isEmpty() || yearOfStudy.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()){
             view.msg("Fill the all fields!")
         }else if(password != confirmPassword){
             view.msg("Passwords do not match!")
         }else {
-            newStudent = Student(name, age, yearOfStudy)
+            newStudent = Student(name, age.toInt(), yearOfStudy.toInt())
             newUser = User(username, password)
             interactor.registerUsername(newUser)
         }
