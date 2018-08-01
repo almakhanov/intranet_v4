@@ -12,6 +12,8 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+
+        //TODO roles
         if (firebaseAuth.currentUser != null) startActivity(Intent(this, StudentMainActivity::class.java))
         else startActivity(Intent(this, SignInActivity::class.java))
 

@@ -6,7 +6,6 @@ object AppConstants {
     const val ADMIN = "ADMIN"
     const val ANONYMOUS = "ANONYMOUS"
     const val STUDENTS = "students"
-    const val USERS = "users"
     const val TEAHCERS = "teachers"
     const val ADMINS = "admins"
 
