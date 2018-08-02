@@ -12,7 +12,7 @@ import kz.batana.intranet_v4.data.Entities.Teacher
 import kz.batana.intranet_v4.data.Entities.User
 
 
-class SignUpInteractor(private val presenter: SignUpPresenter) : SignUpMVP.Interactor {
+class SignUpInteractor(private val presenter: SignUpMVP.Presenter) : SignUpMVP.Interactor {
 
     private var currentAuthorizingUserUID = "currentAuthorizingUserUID"
 

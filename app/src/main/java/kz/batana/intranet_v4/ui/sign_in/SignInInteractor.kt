@@ -12,7 +12,7 @@ import kz.batana.intranet_v4.AppConstants.ADMIN
 import kz.batana.intranet_v4.AppConstants.STUDENT
 import kz.batana.intranet_v4.AppConstants.TEACHER
 
-class SignInInteractor(private val presenter: SignInPresenter) : SignInMVP.Interactor {
+class SignInInteractor(private val presenter: SignInMVP.Presenter) : SignInMVP.Interactor {
 
     override fun authorize(username: String, password: String) {
         firebaseAuth.signInWithEmailAndPassword(username, password)
