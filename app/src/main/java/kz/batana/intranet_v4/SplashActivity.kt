@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import kz.batana.intranet_v4.App.Companion.databaseReference
 import kz.batana.intranet_v4.App.Companion.firebaseAuth
 import kz.batana.intranet_v4.App.Companion.log
 import kz.batana.intranet_v4.App.Companion.roleOfUser
@@ -57,7 +58,7 @@ class SplashActivity : AppCompatActivity() {
                 }
             }
         }
-        App.databaseReference.child(AppConstants.STUDENTS).addListenerForSingleValueEvent(studentItemListener)
+        databaseReference.child(AppConstants.STUDENTS).addListenerForSingleValueEvent(studentItemListener)
 
 
 
@@ -79,7 +80,7 @@ class SplashActivity : AppCompatActivity() {
                 }
             }
         }
-        App.databaseReference.child(AppConstants.TEACHERS).addListenerForSingleValueEvent(teacherItemListener)
+        databaseReference.child(AppConstants.TEACHERS).addListenerForSingleValueEvent(teacherItemListener)
 
 
         var adminItemListener: ValueEventListener = object : ValueEventListener {
@@ -100,6 +101,6 @@ class SplashActivity : AppCompatActivity() {
                 }
             }
         }
-        App.databaseReference.child(AppConstants.ADMINS).addListenerForSingleValueEvent(adminItemListener)
+        databaseReference.child(AppConstants.ADMINS).addListenerForSingleValueEvent(adminItemListener)
     }
 }

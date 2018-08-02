@@ -25,7 +25,11 @@
         <activity android:name=".ui.sign_in.sign_up.SignUpActivity" />
         <activity android:name=".ui.student_page.StudentMainActivity" />
         <activity android:name=".ui.admin_page.AdminMainActivity" />
-        <activity android:name=".ui.teacher_page.TeacherMainActivity"></activity>
+        <activity android:name=".ui.teacher_page.TeacherMainActivity" />
+        <activity
+            android:name=".ui.admin_page.TestActivity"
+            android:label="@string/title_activity_test"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>
