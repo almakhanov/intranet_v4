@@ -4,7 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_student_main.*
+import kz.batana.intranet_v4.App
 import kz.batana.intranet_v4.App.Companion.firebaseAuth
+import kz.batana.intranet_v4.AppConstants
 import kz.batana.intranet_v4.R
 import kz.batana.intranet_v4.ui.sign_in.SignInActivity
 
@@ -19,6 +21,8 @@ class StudentMainActivity : AppCompatActivity() {
         logout.setOnClickListener{
             firebaseAuth.signOut()
             startActivity(Intent(this, SignInActivity::class.java))
+            App.roleOfUser = AppConstants.ANONYMOUS
+            finish()
         }
     }
 }
