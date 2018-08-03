@@ -9,4 +9,11 @@ interface TeacherMainMVP {
 
     interface Interactor {
     }
+
+    interface TeacherProfileFragmentListener{
+    }
+
+    interface TeacherCoursesFragmentListener {
+
+    }
 }

@@ -17,7 +17,8 @@ import kz.batana.intranet_v4.ui.admin_page.AdminMainActivity
 import kz.batana.intranet_v4.ui.student_page.StudentMainActivity
 import kz.batana.intranet_v4.ui.teacher_page.TeacherMainActivity
 
-class SignUpActivity : AppCompatActivity(), SignUpMVP.View, SignUpMVP.StudentFragmentListener, SignUpMVP.AdminFragmentListener, SignUpMVP.TeacherFragmentListener {
+class SignUpActivity : AppCompatActivity(), SignUpMVP.View, SignUpMVP.StudentFragmentListener,
+        SignUpMVP.AdminFragmentListener, SignUpMVP.TeacherFragmentListener {
 
     private val presenter : SignUpPresenter by lazy{ SignUpPresenter(this) }
 

@@ -27,7 +27,7 @@
         <activity android:name=".ui.admin_page.AdminMainActivity" />
         <activity android:name=".ui.teacher_page.TeacherMainActivity" />
         <activity
-            android:name=".ui.admin_page.TestActivity"
+            android:name=".ui.testing_page.TestActivity"
             android:label="@string/title_activity_test"
             android:theme="@style/AppTheme"></activity>
     </application>

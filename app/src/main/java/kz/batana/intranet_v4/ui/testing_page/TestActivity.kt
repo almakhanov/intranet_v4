@@ -1,5 +1,6 @@
-package kz.batana.intranet_v4.ui.admin_page
+package kz.batana.intranet_v4.ui.testing_page
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.design.widget.Snackbar
@@ -10,7 +11,10 @@ import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_test.*
 import kotlinx.android.synthetic.main.app_bar_test.*
+import kz.batana.intranet_v4.App
+import kz.batana.intranet_v4.AppConstants
 import kz.batana.intranet_v4.R
+import kz.batana.intranet_v4.ui.sign_in.SignInActivity
 
 class TestActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -22,6 +26,11 @@ class TestActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
+
+            App.firebaseAuth.signOut()
+            startActivity(Intent(this, SignInActivity::class.java))
+            App.roleOfUser = AppConstants.ANONYMOUS
+            finish()
         }
 
         val toggle = ActionBarDrawerToggle(
