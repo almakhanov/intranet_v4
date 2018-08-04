@@ -19,11 +19,13 @@ import kz.batana.intranet_v4.ui.sign_in.SignInActivity
 import kz.batana.intranet_v4.ui.teacher_page.courses.TeacherCoursesFragment
 import kz.batana.intranet_v4.ui.teacher_page.profile.TeacherProfileFragment
 
-class TeacherMainActivity : AppCompatActivity(), TeacherMainMVP.Presenter, NavigationView.OnNavigationItemSelectedListener, TeacherMainMVP.TeacherProfileFragmentListener, TeacherMainMVP.TeacherCoursesFragmentListener {
+class TeacherMainActivity : AppCompatActivity(), TeacherMainMVP.View, NavigationView.OnNavigationItemSelectedListener,
+        TeacherMainMVP.TeacherProfileFragmentListener, TeacherMainMVP.TeacherCoursesFragmentListener {
 
     private var actionbar: ActionBar? = null
     private lateinit var teacherProfileFragment: TeacherProfileFragment
     private lateinit var teacherCoursesFragment: TeacherCoursesFragment
+    private val presenter: TeacherMainMVP.Presenter by lazy {TeacherMainPresenter(this)}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

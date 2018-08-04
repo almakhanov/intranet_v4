@@ -14,7 +14,7 @@ import kz.batana.intranet_v4.ui.teacher_page.TeacherMainMVP
 
 class TeacherProfileFragment : Fragment(), TeacherProfileMVP.View {
 
-    private val presenter : TeacherProfilePresenter by lazy{ TeacherProfilePresenter(this) }
+    private val presenter : TeacherProfileMVP.Presenter by lazy{ TeacherProfilePresenter(this) }
     private var listener: TeacherMainMVP.TeacherProfileFragmentListener? = null
 
     companion object {

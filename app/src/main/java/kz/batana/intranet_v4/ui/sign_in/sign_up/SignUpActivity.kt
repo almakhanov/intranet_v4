@@ -20,7 +20,7 @@ import kz.batana.intranet_v4.ui.teacher_page.TeacherMainActivity
 class SignUpActivity : AppCompatActivity(), SignUpMVP.View, SignUpMVP.StudentFragmentListener,
         SignUpMVP.AdminFragmentListener, SignUpMVP.TeacherFragmentListener {
 
-    private val presenter : SignUpPresenter by lazy{ SignUpPresenter(this) }
+    private val presenter : SignUpMVP.Presenter by lazy{ SignUpPresenter(this) }
 
     private lateinit var studentsFragment: SignUpStudentFragment
     private lateinit var teacherFragment: SignUpTeacherFragment

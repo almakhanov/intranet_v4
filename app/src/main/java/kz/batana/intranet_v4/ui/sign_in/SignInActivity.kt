@@ -16,7 +16,7 @@ import kz.batana.intranet_v4.ui.teacher_page.TeacherMainActivity
 
 class SignInActivity : AppCompatActivity(), SignInMVP.View {
 
-    private val presenter : SignInPresenter by lazy{ SignInPresenter(this) }
+    private val presenter : SignInMVP.Presenter by lazy{ SignInPresenter(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

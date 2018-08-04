@@ -17,7 +17,7 @@ import kz.batana.intranet_v4.ui.sign_in.sign_up.SignUpFragmentPagerAdapter
 class AdminMainActivity : AppCompatActivity(), AdminMainMVP.View, AdminMainMVP.StudentListFragmentListener,
         AdminMainMVP.TeacherListFragmentListener, AdminMainMVP.AdminListFragmentListener {
 
-    private val presenter : AdminMainPresenter by lazy{ AdminMainPresenter(this) }
+    private val presenter : AdminMainMVP.Presenter by lazy{ AdminMainPresenter(this) }
 
     private lateinit var studentsFragment: AdminMainStudentListFragment
     private lateinit var teacherFragment: AdminMainTeacherListFragment

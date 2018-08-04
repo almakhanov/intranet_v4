@@ -22,7 +22,7 @@ import kz.batana.intranet_v4.ui.teacher_page.courses.course_add.CourseAddActivit
 class TeacherCoursesFragment : Fragment(), TeacherCoursesMVP.View, TeacherCourseAdapter.OnItemClickListener {
 
 
-    private val presenter : TeacherCoursesPresenter by lazy{ TeacherCoursesPresenter(this) }
+    private val presenter : TeacherCoursesMVP.Presenter by lazy{ TeacherCoursesPresenter(this) }
     private var listener: TeacherMainMVP.TeacherCoursesFragmentListener? = null
     private lateinit var teacherListAdapter: TeacherCourseAdapter
 
