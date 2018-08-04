@@ -19,8 +19,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
-        <activity android:name=".ui.list.ListActivity" />
         <activity android:name=".ui.sign_in.SignInActivity" />
         <activity android:name=".ui.sign_in.sign_up.SignUpActivity" />
         <activity android:name=".ui.student_page.StudentMainActivity" />
@@ -29,7 +27,8 @@
         <activity
             android:name=".ui.testing_page.TestActivity"
             android:label="@string/title_activity_test"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".ui.teacher_page.courses.course_add.CourseAddActivity"></activity>
     </application>
 
 </manifest>

@@ -11,6 +11,7 @@ object AppConstants {
     const val STUDENTS = "students"
     const val TEACHERS = "teachers"
     const val ADMINS = "admins"
+    const val COURSES = "courses"
 
     const val TEACHER_SECRET_CODE = "123"
     const val ADMIN_SECRET_CODE = "321"

@@ -2,20 +2,29 @@ package kz.batana.intranet_v4.ui.teacher_page.courses
 
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import kotlinx.android.synthetic.main.fragment_teacher_courses.*
+import kz.batana.intranet_v4.App.Companion.log
 import kz.batana.intranet_v4.R
+import kz.batana.intranet_v4.data.Entities.Course
 import kz.batana.intranet_v4.ui.teacher_page.TeacherMainActivity
 import kz.batana.intranet_v4.ui.teacher_page.TeacherMainMVP
+import kz.batana.intranet_v4.ui.teacher_page.courses.course_add.CourseAddActivity
 
 
-class TeacherCoursesFragment : Fragment(), TeacherCoursesMVP.View {
+class TeacherCoursesFragment : Fragment(), TeacherCoursesMVP.View, TeacherCourseAdapter.OnItemClickListener {
+
 
     private val presenter : TeacherCoursesPresenter by lazy{ TeacherCoursesPresenter(this) }
     private var listener: TeacherMainMVP.TeacherCoursesFragmentListener? = null
+    private lateinit var teacherListAdapter: TeacherCourseAdapter
 
     companion object {
         @JvmStatic
@@ -25,7 +34,7 @@ class TeacherCoursesFragment : Fragment(), TeacherCoursesMVP.View {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_teacher_courses, container, false)
-
+        presenter.getCourseList()
         return view
     }
 
@@ -41,6 +50,31 @@ class TeacherCoursesFragment : Fragment(), TeacherCoursesMVP.View {
     override fun onDetach() {
         super.onDetach()
         listener = null
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        //fab click
+        fab_teacher_courses_list_add.setOnClickListener{
+            startActivity(Intent(activity,CourseAddActivity::class.java))
+        }
+    }
+
+    override fun putCoursesListIntoRecyclerView(courseList: ArrayList<Course>) {
+        var layout = LinearLayoutManager(activity, LinearLayout.VERTICAL, false)
+        recycler_view_teacher_courses_list?.layoutManager = layout
+        teacherListAdapter = TeacherCourseAdapter(courseList, this)
+        recycler_view_teacher_courses_list?.adapter = teacherListAdapter
+        teacherListAdapter.notifyDataSetChanged()
+
+        log("arr list size = ${courseList.size}")
+    }
+
+    override fun onItemClicked(course: Any) {
+        log("#1=a->"+course.toString())
+        var clickedCourse = course as Course
+        log("#2=a->"+clickedCourse.toString())
     }
 
 

@@ -13,7 +13,6 @@ import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_teacher_main.*
 import kz.batana.intranet_v4.App
 import kz.batana.intranet_v4.App.Companion.firebaseAuth
-import kz.batana.intranet_v4.App.Companion.log
 import kz.batana.intranet_v4.AppConstants
 import kz.batana.intranet_v4.R
 import kz.batana.intranet_v4.ui.sign_in.SignInActivity
@@ -40,9 +39,16 @@ class TeacherMainActivity : AppCompatActivity(), TeacherMainMVP.Presenter, Navig
         drawer_layout_teacher.addDrawerListener(toggle)
         toggle.syncState()
 
-
         //navigation view
         navigation_view_teacher_main.setNavigationItemSelectedListener(this)
+
+        //default page
+        actionbar?.apply {
+            this.title = "Profile"
+        }
+        teacherProfileFragment = TeacherProfileFragment.newInstance()
+        createFragment(teacherProfileFragment, R.id.container_teacher_main)
+
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -64,7 +70,7 @@ class TeacherMainActivity : AppCompatActivity(), TeacherMainMVP.Presenter, Navig
                 createFragment(teacherCoursesFragment, R.id.container_teacher_main)
             }
             R.id.navigation_teacher_about -> {
-
+                //TODO information in dialog
             }
             R.id.navigation_teacher_logout -> {
                 firebaseAuth.signOut()
@@ -98,11 +104,9 @@ class TeacherMainActivity : AppCompatActivity(), TeacherMainMVP.Presenter, Navig
     }
 
     private fun createFragment(fragment: Fragment, layoutContainer: Int) {
-        log("$fragment is creating...")
         supportFragmentManager.beginTransaction()
                 .replace(layoutContainer, fragment)
                 //.addToBackStack(null)
                 .commit()
-        log("$fragment Created!")
     }
 }
