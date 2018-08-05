@@ -28,12 +28,14 @@ class SignInActivity : AppCompatActivity(), SignInMVP.View {
 
 
         button_login_sign_in.setOnClickListener{
+            button_login_sign_in.isEnabled = false
             presenter.login(edit_text_sign_in_username.text.toString(), edit_text_sign_in_password.text.toString())
         }
 
     }
 
     override fun msg(message: String) {
+        button_login_sign_in.isEnabled = true
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
