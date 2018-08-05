@@ -14,8 +14,8 @@ import kz.batana.intranet_v4.AppConstants.ADMIN
 import kz.batana.intranet_v4.AppConstants.STUDENT
 import kz.batana.intranet_v4.AppConstants.TEACHER
 import kz.batana.intranet_v4.ui.admin_page.AdminMainActivity
-import kz.batana.intranet_v4.ui.testing_page.TestActivity
 import kz.batana.intranet_v4.ui.sign_in.SignInActivity
+import kz.batana.intranet_v4.ui.student_page.StudentMainActivity
 import kz.batana.intranet_v4.ui.teacher_page.TeacherMainActivity
 
 class SplashActivity : AppCompatActivity() {
@@ -51,7 +51,7 @@ class SplashActivity : AppCompatActivity() {
                     if(student.key.toString() == currentUserId) {
                         log("studentUserId=================")
                         roleOfUser = STUDENT
-                        startActivity(Intent(appContext, TestActivity::class.java))
+                        startActivity(Intent(appContext, StudentMainActivity::class.java))
                         finish()
                         return
                     }

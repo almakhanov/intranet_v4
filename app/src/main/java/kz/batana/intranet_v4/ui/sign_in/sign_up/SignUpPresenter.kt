@@ -9,6 +9,7 @@ import kz.batana.intranet_v4.AppConstants.ADMIN
 import kz.batana.intranet_v4.AppConstants.ADMIN_SECRET_CODE
 import kz.batana.intranet_v4.AppConstants.STUDENT
 import kz.batana.intranet_v4.AppConstants.TEACHER
+import kz.batana.intranet_v4.AppConstants.TEACHER_SECRET_CODE
 import kz.batana.intranet_v4.data.Entities.Admin
 import kz.batana.intranet_v4.data.Entities.Student
 import kz.batana.intranet_v4.data.Entities.Teacher
@@ -68,7 +69,7 @@ class SignUpPresenter(private val view: SignUpMVP.View) : SignUpMVP.Presenter {
             confirmPassword.isEmpty() -> view.msg("Confirm Password is empty!")
             secretCode.isEmpty() -> view.msg("Secret Code is empty!")
             password != confirmPassword -> view.msg("Passwords do not match!")
-            secretCode != ADMIN_SECRET_CODE -> view.msg("Incorrect secret code!")
+            secretCode != TEACHER_SECRET_CODE -> view.msg("Incorrect secret code!")
             else -> {
                 newTeacher = Teacher(name, age.toInt(), degree)
                 newUser = User(username, password)
