@@ -12,9 +12,8 @@ import kz.batana.intranet_v4.ui.student_page.StudentMainActivity
 import kz.batana.intranet_v4.ui.student_page.StudentMainMVP
 
 
-class StudentProfileFragment : Fragment(), StudentProfileMVP.View {
+class StudentProfileFragment : Fragment() {
 
-    private val presenter: StudentProfileMVP.Presenter by lazy { StudentProfilePresenter(this) }
     private var listener: StudentMainMVP.StudentProfileFragmentListener? = null
 
     companion object {

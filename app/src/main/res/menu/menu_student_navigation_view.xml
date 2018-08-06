@@ -10,10 +10,16 @@
             android:checked="true"
             android:title="Profile" />
         <item
-            android:id="@+id/navigation_student_course"
+            android:id="@+id/navigation_student_course_own"
             android:iconTint="#505050"
             android:icon="@drawable/ic_folder"
-            android:title="Courses"  />
+            android:title="My Courses"  />
+        <item
+            android:id="@+id/navigation_student_course_all"
+            android:iconTint="#505050"
+            android:icon="@drawable/ic_create_new_folder"
+            android:title="New Courses"  />
+
     </group>
 
     <item android:title="Action">

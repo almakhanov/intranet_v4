@@ -14,17 +14,22 @@ import kz.batana.intranet_v4.App
 import kz.batana.intranet_v4.App.Companion.firebaseAuth
 import kz.batana.intranet_v4.AppConstants
 import kz.batana.intranet_v4.R
+import kz.batana.intranet_v4.data.Entities.Course
+import kz.batana.intranet_v4.data.Entities.Teacher
 import kz.batana.intranet_v4.ui.sign_in.SignInActivity
-import kz.batana.intranet_v4.ui.student_page.courses.StudentCoursesFragment
+import kz.batana.intranet_v4.ui.student_page.courses.StudentCoursesAllFragment
+import kz.batana.intranet_v4.ui.student_page.courses.StudentCoursesOwnFragment
 import kz.batana.intranet_v4.ui.student_page.profile.StudentProfileFragment
 
 class StudentMainActivity : AppCompatActivity(), StudentMainMVP.View, StudentMainMVP.StudentProfileFragmentListener,
-        NavigationView.OnNavigationItemSelectedListener, StudentMainMVP.StudentCoursesFragmentListener {
+        NavigationView.OnNavigationItemSelectedListener, StudentMainMVP.StudentCoursesAllFragementListener {
 
     private val presenter: StudentMainMVP.Presenter by lazy { StudentMainPresenter(this) }
     private var actionbar: ActionBar? = null
     private lateinit var studentProfileFragment: StudentProfileFragment
-    private lateinit var studentCoursesFragment: StudentCoursesFragment
+    private lateinit var studentCoursesOwnFragment: StudentCoursesOwnFragment
+    private lateinit var studentCoursesAllFragment: StudentCoursesAllFragment
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,13 +76,24 @@ class StudentMainActivity : AppCompatActivity(), StudentMainMVP.View, StudentMai
                 studentProfileFragment = StudentProfileFragment.newInstance()
                 createFragment(studentProfileFragment, R.id.container_student_main)
             }
-            R.id.navigation_student_course -> {
+            R.id.navigation_student_course_own -> {
                 actionbar?.apply {
-                    this.title = "Courses"
+                    this.title = "My Courses"
                 }
 
-                studentCoursesFragment = StudentCoursesFragment.newInstance()
-                createFragment(studentCoursesFragment, R.id.container_student_main)
+                studentCoursesOwnFragment = StudentCoursesOwnFragment.newInstance()
+                createFragment(studentCoursesOwnFragment, R.id.container_student_main)
+            }
+            R.id.navigation_student_course_all -> {
+                actionbar?.apply {
+                    this.title = "New Courses"
+                }
+
+
+
+
+                studentCoursesAllFragment = StudentCoursesAllFragment.newInstance()
+                createFragment(studentCoursesAllFragment, R.id.container_student_main)
             }
             R.id.navigation_student_about -> {
                 //TODO information in dialog
@@ -119,4 +135,13 @@ class StudentMainActivity : AppCompatActivity(), StudentMainMVP.View, StudentMai
                 //.addToBackStack(null)
                 .commit()
     }
+
+    override fun getCourseListWithTeachers() {
+        presenter.getCourseListWithTeachers()
+    }
+
+    override fun sendCoursesListAndTeacher(list: ArrayList<Course>, teacher: Teacher) {
+        studentCoursesAllFragment.putCoursesListIntoRecyclerView(list, teacher)
+    }
+
 }
