@@ -64,7 +64,13 @@ class StudentCoursesAllFragment : Fragment(), StudentCoursesAdapter.OnItemClickL
         builder.setMessage("Do you want to take course of ${course.name}?")
         val dialogClickListener = DialogInterface.OnClickListener{ _, which ->
             when(which){
-                DialogInterface.BUTTON_POSITIVE -> listener?.saveCourse(course, teacher, courseId)
+                DialogInterface.BUTTON_POSITIVE -> {
+                    courseList = ArrayList()
+                    teacherList = ArrayList()
+                    courseIdList = ArrayList()
+                    listener?.saveCourse(course, teacher, courseId)
+                }
+
                 DialogInterface.BUTTON_NEGATIVE -> listener?.msg("Choice cancelled!")
             }
         }

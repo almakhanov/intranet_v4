@@ -3,10 +3,10 @@ package kz.batana.intranet_v4.ui.student_page
 import kz.batana.intranet_v4.App.Companion.log
 import kz.batana.intranet_v4.data.Entities.Course
 import kz.batana.intranet_v4.data.Entities.Mark
+import kz.batana.intranet_v4.data.Entities.Student
 import kz.batana.intranet_v4.data.Entities.Teacher
 
 class StudentMainPresenter(private val view: StudentMainMVP.View) : StudentMainMVP.Presenter {
-
 
     private val interactor = StudentMainInteractor(this)
 
@@ -91,5 +91,52 @@ class StudentMainPresenter(private val view: StudentMainMVP.View) : StudentMainM
 
 
         view.sendCoursesListAndTeacher(allList, teacher, allIdList)
+    }
+
+    override fun getStudentData() {
+        interactor.getStudentData()
+    }
+
+    override fun sendStudentData(student: Student) {
+        view.sendStudentData(student)
+    }
+
+    override fun getProfileInfo() {
+        interactor.getProfileInfo()
+    }
+
+    override fun sendProfileInfo(student: Student, email: String, studentId: String, studentCourses: ArrayList<Course>,
+                                 studentCoursesIds: ArrayList<String>, studentMarkList: ArrayList<Int>) {
+        var sumOfCredits = 0
+        for(it in studentCourses){
+            sumOfCredits += it.credit
+        }
+
+        var sumOfPoints = 0.0
+        for((ind, it) in studentCourses.withIndex()){
+            sumOfPoints += it.credit * getScore(studentMarkList[ind])
+        }
+
+        var gpa: Double = sumOfPoints / sumOfCredits
+        val gpaStr = "%.2f".format(gpa)
+
+        view.sendStudentInfo(student, email, gpaStr)
+    }
+
+    private fun getScore(value: Int): Double{
+        return when(value){
+            in 95..100 -> 4.0
+            in 90..95 -> 3.67
+            in 85..90 -> 3.33
+            in 80..85 -> 3.0
+            in 75..80 -> 2.67
+            in 70..75 -> 2.33
+            in 65..70 -> 2.0
+            in 60..65 -> 1.67
+            in 55..60 -> 1.33
+            in 50..55 -> 1.0
+            else -> 0.0
+
+        }
     }
 }

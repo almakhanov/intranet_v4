@@ -10,6 +10,7 @@ import android.support.v7.app.ActionBar
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
+import android.widget.TextView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_teacher_main.*
 import kz.batana.intranet_v4.App
@@ -49,6 +50,9 @@ class TeacherMainActivity : AppCompatActivity(), TeacherMainMVP.View, Navigation
 
         //navigation view
         navigation_view_teacher_main.setNavigationItemSelectedListener(this)
+        var headerView = navigation_view_teacher_main.getHeaderView(0)
+        var navUsername = headerView.findViewById<TextView>(R.id.text_view_teacher_navigation_header_email)
+        navUsername.text = firebaseAuth.currentUser!!.email
 
         //default page
         actionbar?.apply {

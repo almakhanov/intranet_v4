@@ -9,6 +9,7 @@ import android.support.v7.app.ActionBar
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
+import android.widget.TextView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_student_main.*
 import kz.batana.intranet_v4.App
@@ -17,6 +18,7 @@ import kz.batana.intranet_v4.App.Companion.log
 import kz.batana.intranet_v4.AppConstants
 import kz.batana.intranet_v4.R
 import kz.batana.intranet_v4.data.Entities.Course
+import kz.batana.intranet_v4.data.Entities.Student
 import kz.batana.intranet_v4.data.Entities.Teacher
 import kz.batana.intranet_v4.ui.sign_in.SignInActivity
 import kz.batana.intranet_v4.ui.student_page.courses.StudentCoursesAllFragment
@@ -33,6 +35,7 @@ class StudentMainActivity : AppCompatActivity(), StudentMainMVP.View, StudentMai
     private lateinit var studentProfileFragment: StudentProfileFragment
     private lateinit var studentCoursesOwnFragment: StudentCoursesOwnFragment
     private lateinit var studentCoursesAllFragment: StudentCoursesAllFragment
+    private lateinit var currentStudent: Student
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,6 +55,10 @@ class StudentMainActivity : AppCompatActivity(), StudentMainMVP.View, StudentMai
         //navigation view
         navigation_view_student_main.setNavigationItemSelectedListener(this)
 
+        var headerView = navigation_view_student_main.getHeaderView(0)
+        var navUsername = headerView.findViewById<TextView>(R.id.text_view_student_navigation_header_email)
+        navUsername.text = firebaseAuth.currentUser!!.email
+
         //default page
         actionbar?.apply {
             this.title = "Profile"
@@ -59,6 +66,9 @@ class StudentMainActivity : AppCompatActivity(), StudentMainMVP.View, StudentMai
         studentProfileFragment = StudentProfileFragment.newInstance()
         createFragment(studentProfileFragment, R.id.container_student_main)
 
+
+
+        presenter.getStudentData()
 
 //        text_student_main.text = firebaseAuth.currentUser!!.email
 //
@@ -68,6 +78,16 @@ class StudentMainActivity : AppCompatActivity(), StudentMainMVP.View, StudentMai
 //            App.roleOfUser = AppConstants.ANONYMOUS
 //            finish()
 //        }
+
+
+    }
+
+    override fun getProfileInfo() {
+        presenter.getProfileInfo()
+    }
+
+    override fun sendStudentData(student: Student) {
+        currentStudent = student
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -169,6 +189,8 @@ class StudentMainActivity : AppCompatActivity(), StudentMainMVP.View, StudentMai
         log(list.toString())
     }
 
-
+    override fun sendStudentInfo(student: Student, email: String, gpa: String) {
+        studentProfileFragment.sendStudentData(student, email, gpa)
+    }
 
 }

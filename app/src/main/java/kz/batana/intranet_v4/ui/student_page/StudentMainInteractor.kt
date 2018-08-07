@@ -10,10 +10,12 @@ import kz.batana.intranet_v4.App.Companion.log
 import kz.batana.intranet_v4.AppConstants.COURSES
 import kz.batana.intranet_v4.AppConstants.COURSE_STUDENTS
 import kz.batana.intranet_v4.AppConstants.MARKS
+import kz.batana.intranet_v4.AppConstants.STUDENTS
 import kz.batana.intranet_v4.AppConstants.STUDENT_COURSES
 import kz.batana.intranet_v4.AppConstants.TEACHERS
 import kz.batana.intranet_v4.data.Entities.Course
 import kz.batana.intranet_v4.data.Entities.Mark
+import kz.batana.intranet_v4.data.Entities.Student
 import kz.batana.intranet_v4.data.Entities.Teacher
 
 class StudentMainInteractor(private val presenter: StudentMainMVP.Presenter) : StudentMainMVP.Interactor {
@@ -82,6 +84,81 @@ class StudentMainInteractor(private val presenter: StudentMainMVP.Presenter) : S
 
 
     }
+
+    override fun getStudentData() {
+        val studentId = firebaseAuth.currentUser!!.uid
+        databaseReference.child(STUDENTS).child(studentId).addValueEventListener(object: ValueEventListener{
+            override fun onCancelled(p0: DatabaseError) {
+                log(p0.message)
+            }
+
+            override fun onDataChange(datasnapShot: DataSnapshot) {
+                var student = datasnapShot.getValue(Student::class.java)
+                presenter.sendStudentData(student!!)
+            }
+
+        })
+    }
+
+    override fun getProfileInfo() {
+        var email = firebaseAuth.currentUser!!.email
+        val studentId = firebaseAuth.currentUser!!.uid
+        databaseReference.child(STUDENTS).child(studentId).addValueEventListener(object: ValueEventListener{
+            override fun onCancelled(p0: DatabaseError) {
+                log(p0.message)
+            }
+
+            override fun onDataChange(datasnapShot: DataSnapshot) {
+                var student = datasnapShot.getValue(Student::class.java)
+                getProfileInfoGpa(student!!, email!!, studentId)
+            }
+        })
+    }
+
+    private fun getProfileInfoGpa(student: Student, email: String, studentId: String) {
+        var studentCourses: ArrayList<Course> = ArrayList()
+        var studentCoursesIds: ArrayList<String> = ArrayList()
+        var studentMarkList: ArrayList<Int> = ArrayList()
+        databaseReference.child(STUDENT_COURSES).child(studentId).addValueEventListener(object: ValueEventListener{
+            override fun onCancelled(p0: DatabaseError) {
+                log(p0.message)
+            }
+
+            override fun onDataChange(datasnapShot: DataSnapshot) {
+                for(it in datasnapShot.children){
+                    studentCourses.add(it.getValue(Course::class.java)!!)
+                    studentCoursesIds.add(it.key!!)
+                    studentMarkList.add(0)
+                }
+                getProfileInfoMark(student, email, studentId, studentCourses, studentCoursesIds, studentMarkList)
+            }
+
+        })
+    }
+
+    private fun getProfileInfoMark(student: Student, email: String, studentId: String, studentCourses: ArrayList<Course>, studentCoursesIds: ArrayList<String>, studentMarkList: ArrayList<Int>) {
+        databaseReference.child(MARKS).child(studentId).addValueEventListener(object: ValueEventListener{
+            override fun onCancelled(p0: DatabaseError) {
+                log(p0.message)
+            }
+
+            override fun onDataChange(datasnapShot: DataSnapshot) {
+                for(markDataSnap in datasnapShot.children){
+                    var mark = markDataSnap.getValue(Mark::class.java)
+                    var markId = markDataSnap.key
+                    for((index1, courseId) in studentCoursesIds.withIndex()){
+                        if(courseId == markId){
+                            studentMarkList[index1] = mark!!.value
+                        }
+                    }
+                }
+                presenter.sendProfileInfo(student, email, studentId, studentCourses, studentCoursesIds, studentMarkList)
+
+            }
+
+        })
+    }
+
 
     override fun getTranscriptData() {
         val studentId = firebaseAuth.currentUser!!.uid
