@@ -20,11 +20,13 @@ class TeacherCoursesInteractor(private val presenter: TeacherCoursesMVP.Presente
 
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 var list: ArrayList<Course> = ArrayList()
+                var idList: ArrayList<String> = ArrayList()
                 for (it in dataSnapshot.children) {
                     val course = it.getValue(Course::class.java)
                     list.add(course!!)
+                    idList.add(it.key!!)
                 }
-                presenter.receivedStudentList(list)
+                presenter.receivedStudentList(list, idList)
             }
 
         })

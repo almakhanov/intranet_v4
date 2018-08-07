@@ -1,7 +1,9 @@
 package kz.batana.intranet_v4.ui.student_page.courses
 
 
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -24,6 +26,7 @@ class StudentCoursesAllFragment : Fragment(), StudentCoursesAdapter.OnItemClickL
     private lateinit var courseListAdapter: StudentCoursesAdapter
     private lateinit var courseList: ArrayList<Course>
     private lateinit var teacherList: ArrayList<Teacher>
+    private lateinit var courseIdList: ArrayList<String>
 
     companion object {
         @JvmStatic
@@ -34,6 +37,7 @@ class StudentCoursesAllFragment : Fragment(), StudentCoursesAdapter.OnItemClickL
                               savedInstanceState: Bundle?): View? {
         courseList = ArrayList()
         teacherList = ArrayList()
+        courseIdList = ArrayList()
         listener?.getCourseListWithTeachers()
 
         return inflater.inflate(R.layout.fragment_student_courses_all, container, false)
@@ -53,26 +57,42 @@ class StudentCoursesAllFragment : Fragment(), StudentCoursesAdapter.OnItemClickL
         listener = null
     }
 
-    override fun onCourseClicked(course: Course, teacher: Teacher) {
-        log("~~~Clicked~~~")
-        log("~~~$course~~~")
-        log("~~~$teacher~~~")
+    override fun onCourseClicked(course: Course, teacher: Teacher, courseId: String) {
+        var dialog: AlertDialog
+        val builder = AlertDialog.Builder(activity)
+        builder.setTitle("${course.name} by ${teacher.name}")
+        builder.setMessage("Do you want to take course of ${course.name}?")
+        val dialogClickListener = DialogInterface.OnClickListener{ _, which ->
+            when(which){
+                DialogInterface.BUTTON_POSITIVE -> listener?.saveCourse(course, teacher, courseId)
+                DialogInterface.BUTTON_NEGATIVE -> listener?.msg("Choice cancelled!")
+            }
+        }
+
+        builder.setPositiveButton("YES", dialogClickListener)
+        builder.setNegativeButton("NO", dialogClickListener)
+
+        dialog = builder.create()
+        dialog.show()
     }
 
-    fun putCoursesListIntoRecyclerView(list: ArrayList<Course>, teacher: Teacher){
+    fun putCoursesListIntoRecyclerView(list: ArrayList<Course>, teacher: Teacher, courseIds: ArrayList<String>){
         for(it in list){
             courseList.add(it)
             teacherList.add(teacher)
         }
+        courseIdList.addAll(courseIds)
 
         var layout = LinearLayoutManager(activity, LinearLayout.VERTICAL, false)
         recycler_view_student_courses_all_list?.layoutManager = layout
-        courseListAdapter = StudentCoursesAdapter(courseList, teacherList, this)
+        courseListAdapter = StudentCoursesAdapter(courseList, teacherList, courseIdList, this)
         recycler_view_student_courses_all_list?.adapter = courseListAdapter
         courseListAdapter.notifyDataSetChanged()
 
         log("arr list size = ${courseList.size}")
     }
+
+
 
 
 }

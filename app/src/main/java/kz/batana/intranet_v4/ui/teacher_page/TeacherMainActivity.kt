@@ -10,21 +10,27 @@ import android.support.v7.app.ActionBar
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_teacher_main.*
 import kz.batana.intranet_v4.App
 import kz.batana.intranet_v4.App.Companion.firebaseAuth
 import kz.batana.intranet_v4.AppConstants
 import kz.batana.intranet_v4.R
+import kz.batana.intranet_v4.data.Entities.Course
+import kz.batana.intranet_v4.data.Entities.Student
 import kz.batana.intranet_v4.ui.sign_in.SignInActivity
 import kz.batana.intranet_v4.ui.teacher_page.courses.TeacherCoursesFragment
+import kz.batana.intranet_v4.ui.teacher_page.courses.course_students.CourseStudentsFragment
 import kz.batana.intranet_v4.ui.teacher_page.profile.TeacherProfileFragment
 
 class TeacherMainActivity : AppCompatActivity(), TeacherMainMVP.View, NavigationView.OnNavigationItemSelectedListener,
-        TeacherMainMVP.TeacherProfileFragmentListener, TeacherMainMVP.TeacherCoursesFragmentListener {
+        TeacherMainMVP.TeacherProfileFragmentListener, TeacherMainMVP.TeacherCoursesFragmentListener, TeacherMainMVP.CourseStudentsFragementListener {
+
 
     private var actionbar: ActionBar? = null
     private lateinit var teacherProfileFragment: TeacherProfileFragment
     private lateinit var teacherCoursesFragment: TeacherCoursesFragment
+    private lateinit var courseStudentsFragment: CourseStudentsFragment
     private val presenter: TeacherMainMVP.Presenter by lazy {TeacherMainPresenter(this)}
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -108,7 +114,46 @@ class TeacherMainActivity : AppCompatActivity(), TeacherMainMVP.View, Navigation
     private fun createFragment(fragment: Fragment, layoutContainer: Int) {
         supportFragmentManager.beginTransaction()
                 .replace(layoutContainer, fragment)
-                //.addToBackStack(null)
                 .commit()
     }
+
+    private fun createFragmentWithBackStack(fragment: Fragment, layoutContainer: Int) {
+        supportFragmentManager.beginTransaction()
+                .replace(layoutContainer, fragment)
+                .addToBackStack(null)
+                .commit()
+    }
+
+    override fun openCourseStudentsList(course: Course, courseId: String) {
+        actionbar?.apply {
+            this.title = "${course.name} group"
+        }
+        courseStudentsFragment = CourseStudentsFragment.newInstance(courseId)
+        createFragmentWithBackStack(courseStudentsFragment, R.id.container_teacher_main)
+    }
+
+
+    override fun getCourseStudentsList(courseID: String) {
+        presenter.getCourseStudentsListForFragment(courseID)
+    }
+
+    override fun sendStudentData(students: Student, studentsId: String) {
+        courseStudentsFragment.putCoursesListIntoRecyclerView(students,studentsId)
+    }
+
+    override fun applyToolbarTitle(title: String) {
+        actionbar?.apply {
+            this.title = title
+        }
+    }
+
+    override fun putMark(markValue: String, studentId: String, courseId: String) {
+        presenter.putMark(markValue,studentId,courseId)
+    }
+
+    override fun msg(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+
 }

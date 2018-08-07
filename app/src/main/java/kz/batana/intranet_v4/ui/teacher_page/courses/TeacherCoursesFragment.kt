@@ -61,20 +61,18 @@ class TeacherCoursesFragment : Fragment(), TeacherCoursesMVP.View, TeacherCourse
         }
     }
 
-    override fun putCoursesListIntoRecyclerView(courseList: ArrayList<Course>) {
+    override fun putCoursesListIntoRecyclerView(courseList: ArrayList<Course>, idList: ArrayList<String>) {
         var layout = LinearLayoutManager(activity, LinearLayout.VERTICAL, false)
         recycler_view_teacher_courses_list?.layoutManager = layout
-        teacherListAdapter = TeacherCourseAdapter(courseList, this)
+        teacherListAdapter = TeacherCourseAdapter(courseList, idList, this)
         recycler_view_teacher_courses_list?.adapter = teacherListAdapter
         teacherListAdapter.notifyDataSetChanged()
 
         log("arr list size = ${courseList.size}")
     }
 
-    override fun onItemClicked(course: Any) {
-        log("#1=a->"+course.toString())
-        var clickedCourse = course as Course
-        log("#2=a->"+clickedCourse.toString())
+    override fun onItemClicked(course: Course, courseId: String) {
+        listener?.openCourseStudentsList(course, courseId)
     }
 
 

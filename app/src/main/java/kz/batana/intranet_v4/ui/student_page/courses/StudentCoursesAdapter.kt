@@ -12,6 +12,7 @@ import kz.batana.intranet_v4.data.Entities.Teacher
 
 class StudentCoursesAdapter(private var datasetCourses: ArrayList<Course>,
                             private var datasetTeachers: ArrayList<Teacher>,
+                            private var courseIdList: ArrayList<String>,
                             private val listener: OnItemClickListener)
     : RecyclerView.Adapter<StudentCoursesAdapter.CoursesViewHolder>() {
 
@@ -44,15 +45,16 @@ class StudentCoursesAdapter(private var datasetCourses: ArrayList<Course>,
             var pos : Int = adapterPosition
             var course : Course = datasetCourses[pos]
             var teacher : Teacher = datasetTeachers[pos]
+            var courseId = courseIdList[pos]
             log("clicked course=$course\nteacher=$teacher")
 
-            listener.onCourseClicked(course, teacher)
+            listener.onCourseClicked(course, teacher, courseId)
 
         }
 
     }
 
     interface OnItemClickListener {
-        fun onCourseClicked(course: Course, teacher: Teacher)
+        fun onCourseClicked(course: Course, teacher: Teacher, courseId: String)
     }
 }

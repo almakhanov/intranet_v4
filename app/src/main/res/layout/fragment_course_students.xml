@@ -4,10 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.student_page.courses.StudentCoursesOwnFragment">
+    tools:context=".ui.teacher_page.courses.course_students.CourseStudentsFragment">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view_student_courses_own_list"
+        android:id="@+id/recycler_view_course_students"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="8dp"

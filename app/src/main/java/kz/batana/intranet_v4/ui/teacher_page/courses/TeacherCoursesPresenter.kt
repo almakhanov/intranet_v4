@@ -10,8 +10,8 @@ class TeacherCoursesPresenter(private val view: TeacherCoursesMVP.View) : Teache
         interactor.getCourseList()
     }
 
-    override fun receivedStudentList(courseList: ArrayList<Course>) {
-        view.putCoursesListIntoRecyclerView(courseList)
+    override fun receivedStudentList(courseList: ArrayList<Course>, idList: ArrayList<String>) {
+        view.putCoursesListIntoRecyclerView(courseList, idList)
     }
 
 }

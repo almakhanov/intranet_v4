@@ -9,6 +9,7 @@ import android.support.v7.app.ActionBar
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_student_main.*
 import kz.batana.intranet_v4.App
 import kz.batana.intranet_v4.App.Companion.firebaseAuth
@@ -22,7 +23,8 @@ import kz.batana.intranet_v4.ui.student_page.courses.StudentCoursesOwnFragment
 import kz.batana.intranet_v4.ui.student_page.profile.StudentProfileFragment
 
 class StudentMainActivity : AppCompatActivity(), StudentMainMVP.View, StudentMainMVP.StudentProfileFragmentListener,
-        NavigationView.OnNavigationItemSelectedListener, StudentMainMVP.StudentCoursesAllFragementListener {
+        NavigationView.OnNavigationItemSelectedListener, StudentMainMVP.StudentCoursesAllFragementListener, StudentMainMVP.StudentCoursesOwnFragementListener {
+
 
     private val presenter: StudentMainMVP.Presenter by lazy { StudentMainPresenter(this) }
     private var actionbar: ActionBar? = null
@@ -140,8 +142,25 @@ class StudentMainActivity : AppCompatActivity(), StudentMainMVP.View, StudentMai
         presenter.getCourseListWithTeachers()
     }
 
-    override fun sendCoursesListAndTeacher(list: ArrayList<Course>, teacher: Teacher) {
-        studentCoursesAllFragment.putCoursesListIntoRecyclerView(list, teacher)
+    override fun getCourseOwnList() {
+        presenter.getCourseOwnList()
     }
+
+    override fun sendCoursesListAndTeacher(list: ArrayList<Course>, teacher: Teacher, courseIdList: ArrayList<String>) {
+        studentCoursesAllFragment.putCoursesListIntoRecyclerView(list, teacher, courseIdList)
+    }
+
+    override fun msg(message: String){
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun saveCourse(course: Course, teacher: Teacher, courseId: String) {
+        presenter.saveCourse(course, teacher, courseId)
+    }
+
+    override fun sendCourseOwnList(list: ArrayList<Course>, idList: ArrayList<String>) {
+        studentCoursesOwnFragment.putCoursesListIntoRecyclerView(list, idList)
+    }
+
 
 }
