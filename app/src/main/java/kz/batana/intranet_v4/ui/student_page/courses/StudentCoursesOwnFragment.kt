@@ -15,13 +15,13 @@ import kz.batana.intranet_v4.R
 import kz.batana.intranet_v4.data.Entities.Course
 import kz.batana.intranet_v4.ui.student_page.StudentMainActivity
 import kz.batana.intranet_v4.ui.student_page.StudentMainMVP
-import kz.batana.intranet_v4.ui.teacher_page.courses.TeacherCourseAdapter
 
 
-class StudentCoursesOwnFragment : Fragment(), TeacherCourseAdapter.OnItemClickListener {
+class StudentCoursesOwnFragment : Fragment(), StudentOwnCoursesAdater.OnItemClickListener {
+
 
     private var listener: StudentMainMVP.StudentCoursesOwnFragementListener? = null
-    private lateinit var courseListAdapter: TeacherCourseAdapter
+    private lateinit var courseListAdapter: StudentOwnCoursesAdater
     private lateinit var courseList: ArrayList<Course>
 
     companion object {
@@ -51,18 +51,19 @@ class StudentCoursesOwnFragment : Fragment(), TeacherCourseAdapter.OnItemClickLi
         listener = null
     }
 
-    override fun onItemClicked(course: Course, courseId: String) {
-        log(course.toString())
-    }
 
-    fun putCoursesListIntoRecyclerView(list: ArrayList<Course>, listId: ArrayList<String>){
+    fun putCoursesListIntoRecyclerView(markList: ArrayList<Int>, ownCourseList: ArrayList<Course>,courseIds: ArrayList<String>){
         var layout = LinearLayoutManager(activity, LinearLayout.VERTICAL, false)
         recycler_view_student_courses_own_list?.layoutManager = layout
-        courseListAdapter = TeacherCourseAdapter(list, listId, this)
+        courseListAdapter = StudentOwnCoursesAdater(markList, ownCourseList,courseIds, this)
         recycler_view_student_courses_own_list?.adapter = courseListAdapter
         courseListAdapter.notifyDataSetChanged()
 
-        log("arr list size = ${list.size}")
+        log("arr list size = ${markList.size}")
+    }
+
+    override fun onCourseClicked(course: Course, markValue: Int, courseId: String) {
+
     }
 
 }

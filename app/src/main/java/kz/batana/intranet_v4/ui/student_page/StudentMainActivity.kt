@@ -13,6 +13,7 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_student_main.*
 import kz.batana.intranet_v4.App
 import kz.batana.intranet_v4.App.Companion.firebaseAuth
+import kz.batana.intranet_v4.App.Companion.log
 import kz.batana.intranet_v4.AppConstants
 import kz.batana.intranet_v4.R
 import kz.batana.intranet_v4.data.Entities.Course
@@ -23,7 +24,8 @@ import kz.batana.intranet_v4.ui.student_page.courses.StudentCoursesOwnFragment
 import kz.batana.intranet_v4.ui.student_page.profile.StudentProfileFragment
 
 class StudentMainActivity : AppCompatActivity(), StudentMainMVP.View, StudentMainMVP.StudentProfileFragmentListener,
-        NavigationView.OnNavigationItemSelectedListener, StudentMainMVP.StudentCoursesAllFragementListener, StudentMainMVP.StudentCoursesOwnFragementListener {
+        NavigationView.OnNavigationItemSelectedListener, StudentMainMVP.StudentCoursesAllFragementListener, StudentMainMVP.StudentCoursesOwnFragementListener, StudentMainMVP.StudentTranscriptFragmentListener {
+
 
 
     private val presenter: StudentMainMVP.Presenter by lazy { StudentMainPresenter(this) }
@@ -91,9 +93,6 @@ class StudentMainActivity : AppCompatActivity(), StudentMainMVP.View, StudentMai
                     this.title = "New Courses"
                 }
 
-
-
-
                 studentCoursesAllFragment = StudentCoursesAllFragment.newInstance()
                 createFragment(studentCoursesAllFragment, R.id.container_student_main)
             }
@@ -110,6 +109,14 @@ class StudentMainActivity : AppCompatActivity(), StudentMainMVP.View, StudentMai
         }
         drawer_layout_student.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    override fun sendTranscriptData(markList: ArrayList<Int>, ownCourseList: ArrayList<Course>, courseIds: ArrayList<String>) {
+        studentCoursesOwnFragment.putCoursesListIntoRecyclerView(markList, ownCourseList,courseIds)
+    }
+
+    override fun getTranscriptData() {
+        presenter.getTranscriptData()
     }
 
 
@@ -143,7 +150,7 @@ class StudentMainActivity : AppCompatActivity(), StudentMainMVP.View, StudentMai
     }
 
     override fun getCourseOwnList() {
-        presenter.getCourseOwnList()
+        presenter.getTranscriptData()
     }
 
     override fun sendCoursesListAndTeacher(list: ArrayList<Course>, teacher: Teacher, courseIdList: ArrayList<String>) {
@@ -159,8 +166,9 @@ class StudentMainActivity : AppCompatActivity(), StudentMainMVP.View, StudentMai
     }
 
     override fun sendCourseOwnList(list: ArrayList<Course>, idList: ArrayList<String>) {
-        studentCoursesOwnFragment.putCoursesListIntoRecyclerView(list, idList)
+        log(list.toString())
     }
+
 
 
 }

@@ -49,9 +49,8 @@ class TeacherMainInteractor(private val presenter: TeacherMainMVP.Presenter) : T
     }
 
     override fun putMark(markValue: Int, studentId: String, courseId: String) {
-        val markKey = databaseReference.child(MARKS).child(studentId).push().key.toString()
         val mark = Mark(markValue, courseId)
-        databaseReference.child(MARKS).child(studentId).child(markKey).setValue(mark)
+        databaseReference.child(MARKS).child(studentId).child(courseId).setValue(mark)
         presenter.onSuccessMessage("Success!")
     }
 

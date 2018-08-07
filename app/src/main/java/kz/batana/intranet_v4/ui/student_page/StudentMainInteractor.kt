@@ -9,9 +9,11 @@ import kz.batana.intranet_v4.App.Companion.firebaseAuth
 import kz.batana.intranet_v4.App.Companion.log
 import kz.batana.intranet_v4.AppConstants.COURSES
 import kz.batana.intranet_v4.AppConstants.COURSE_STUDENTS
+import kz.batana.intranet_v4.AppConstants.MARKS
 import kz.batana.intranet_v4.AppConstants.STUDENT_COURSES
 import kz.batana.intranet_v4.AppConstants.TEACHERS
 import kz.batana.intranet_v4.data.Entities.Course
+import kz.batana.intranet_v4.data.Entities.Mark
 import kz.batana.intranet_v4.data.Entities.Teacher
 
 class StudentMainInteractor(private val presenter: StudentMainMVP.Presenter) : StudentMainMVP.Interactor {
@@ -51,11 +53,76 @@ class StudentMainInteractor(private val presenter: StudentMainMVP.Presenter) : S
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 log("teacher dataSnap="+dataSnapshot.value.toString())
                 val teacher = dataSnapshot.getValue(Teacher::class.java)
-                presenter.sendCoursesListAndTeacher(list, teacher!!, idList)
+                analyzeCourseTeacherData(list, teacher!!, idList)
             }
 
         })
 
+    }
+
+    private fun analyzeCourseTeacherData(list: ArrayList<Course>, teacher: Teacher, idList: ArrayList<String>){
+        val studentId = firebaseAuth.currentUser!!.uid
+        var courseOwnList: ArrayList<Course> = ArrayList()
+        var courseOwnIdsList : ArrayList<String> = ArrayList()
+        databaseReference.child(STUDENT_COURSES).child(studentId).addValueEventListener(object: ValueEventListener{
+            override fun onCancelled(p0: DatabaseError) {
+                log(p0.message)
+            }
+
+            override fun onDataChange(datasnapShot: DataSnapshot) {
+
+                for(course in datasnapShot.children){
+                    courseOwnIdsList.add(course.key.toString())
+                    courseOwnList.add(course.getValue(Course::class.java)!!)
+                }
+                presenter.sendAllCourseTeacherData(list, teacher, idList, courseOwnList, courseOwnIdsList)
+            }
+
+        })
+
+
+    }
+
+    override fun getTranscriptData() {
+        val studentId = firebaseAuth.currentUser!!.uid
+
+        databaseReference.child(MARKS).child(studentId).addValueEventListener(object: ValueEventListener{
+            override fun onCancelled(p0: DatabaseError) {
+                log(p0.message)
+            }
+
+            override fun onDataChange(datasnapShot: DataSnapshot) {
+                var marks: ArrayList<Mark> = ArrayList()
+                var courseIds : ArrayList<String> = ArrayList()
+                for(mark in datasnapShot.children){
+                    courseIds.add(mark.key.toString())
+                    marks.add(mark.getValue(Mark::class.java)!!)
+                }
+                getCoursesData(marks, courseIds)
+            }
+
+        })
+    }
+
+    private fun getCoursesData(marks: ArrayList<Mark>, courseIds: ArrayList<String>) {
+        val studentId = firebaseAuth.currentUser!!.uid
+        var courseList: ArrayList<Course> = ArrayList()
+        var courseIdsList : ArrayList<String> = ArrayList()
+        databaseReference.child(STUDENT_COURSES).child(studentId).addValueEventListener(object: ValueEventListener{
+            override fun onCancelled(p0: DatabaseError) {
+                log(p0.message)
+            }
+
+            override fun onDataChange(datasnapShot: DataSnapshot) {
+
+                for(course in datasnapShot.children){
+                    courseIdsList.add(course.key.toString())
+                    courseList.add(course.getValue(Course::class.java)!!)
+                }
+                presenter.sendTranscriptData(marks, courseIds, courseList, courseIdsList)
+            }
+
+        })
     }
 
     override fun getCourseOwnList() {
