@@ -29,6 +29,7 @@ class StudentCoursesAdapter(private var Courses: ArrayList<Course>,
         datasetCourses = dataFilter.getNewCourses(indexes, Courses)
         datasetTeachers = dataFilter.getNewTeachers(indexes, Teachers)
         courseIdList = dataFilter.getNewCoursesIds(indexes, courseIds)
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoursesViewHolder {

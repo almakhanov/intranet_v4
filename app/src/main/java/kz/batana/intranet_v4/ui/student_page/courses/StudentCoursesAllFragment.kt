@@ -57,6 +57,7 @@ class StudentCoursesAllFragment : Fragment(), StudentCoursesAdapter.OnItemClickL
         button_student_courses_all_search.setOnClickListener{
             courseListAdapter.filter(edit_text_student_courses_all_search.text.toString())
         }
+
     }
 
     override fun onDetach() {
