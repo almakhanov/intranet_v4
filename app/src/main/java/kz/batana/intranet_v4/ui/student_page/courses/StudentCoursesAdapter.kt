@@ -52,8 +52,10 @@ class StudentCoursesAdapter(private var Courses: ArrayList<Course>,
         fun bind(course: Course, teacher: Teacher){
             val courseName = itemView.findViewById<TextView>(R.id.text_view_course_card_view_course_name)
             val teacherName = itemView.findViewById<TextView>(R.id.text_view_course_card_view_teacher_name)
+            val year = itemView.findViewById<TextView>(R.id.text_view_course_card_view_year_name)
             courseName.text = course.name
             teacherName.text = teacher.name
+            year.text = course.year.toString()
             itemView.setOnClickListener(this)
         }
 

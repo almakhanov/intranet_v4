@@ -37,10 +37,7 @@ class StudentCoursesAllFragment : Fragment(), StudentCoursesAdapter.OnItemClickL
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        courseList = ArrayList()
-        teacherList = ArrayList()
-        courseIdList = ArrayList()
-        listener?.getCourseListWithTeachers()
+
 
         return inflater.inflate(R.layout.fragment_student_courses_all, container, false)
     }
@@ -56,6 +53,10 @@ class StudentCoursesAllFragment : Fragment(), StudentCoursesAdapter.OnItemClickL
 
     override fun onStart() {
         super.onStart()
+        courseList = ArrayList()
+        teacherList = ArrayList()
+        courseIdList = ArrayList()
+        listener?.getCourseListWithTeachers()
         loadOn()
     }
 
