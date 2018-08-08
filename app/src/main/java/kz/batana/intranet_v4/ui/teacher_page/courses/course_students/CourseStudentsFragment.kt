@@ -100,7 +100,7 @@ class CourseStudentsFragment : Fragment(), CourseStudentsAdapter.OnItemClickList
                     listener?.putMark(dialogEditText.text.toString(), studentId, courseID)
                     listener?.getCourseStudentsList(courseID)
                 }
-                DialogInterface.BUTTON_NEGATIVE -> toast("no")
+                DialogInterface.BUTTON_NEGATIVE -> toast("Choice canceled!")
             }
         }
 
