@@ -7,9 +7,7 @@ class TeacherMainPresenter(private val view: TeacherMainMVP.View) : TeacherMainM
 
     private val interactor = TeacherMainInteractor(this)
 
-    override fun sendStudentData(student: Student, studentId: String) {
-        view.sendStudentData(student,studentId)
-    }
+
 
     override fun getTeacherProfile() {
         interactor.getTeacherProfile()
@@ -17,6 +15,10 @@ class TeacherMainPresenter(private val view: TeacherMainMVP.View) : TeacherMainM
 
     override fun sendTeacherInfo(teacher: Teacher, email: String) {
         view.sendTeacherInfo(teacher, email)
+    }
+
+    override fun sendStudentData(studentIds: ArrayList<String>, courseId: String, studentsList: ArrayList<Student>, markList: ArrayList<Int>) {
+        view.sendStudentData(studentIds, courseId, studentsList, markList)
     }
 
     override fun getCourseStudentsListForFragment(courseID: String) {

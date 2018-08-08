@@ -45,15 +45,16 @@ class CourseStudentsFragment : Fragment(), CourseStudentsAdapter.OnItemClickList
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_course_students, container, false)
-        studentIdList = ArrayList()
-        studentsList = ArrayList()
-        listener?.getCourseStudentsList(courseID)
+
         return view
     }
 
     override fun onStart() {
         super.onStart()
         loadOn()
+        studentIdList = ArrayList()
+        studentsList = ArrayList()
+        listener?.getCourseStudentsList(courseID)
     }
 
     override fun onAttach(context: Context) {
@@ -71,19 +72,18 @@ class CourseStudentsFragment : Fragment(), CourseStudentsAdapter.OnItemClickList
         listener = null
     }
 
-    fun putCoursesListIntoRecyclerView(student: Student, studentsId: String){
-        studentsList.add(student)
-        studentIdList.add(studentsId)
-
+    fun putCoursesListIntoRecyclerView(studentIds: ArrayList<String>, courseId: String, studentsList: ArrayList<Student>, markList: ArrayList<Int>){
         var layout = LinearLayoutManager(activity, LinearLayout.VERTICAL, false)
         recycler_view_course_students?.layoutManager = layout
-        studentListAdapter = CourseStudentsAdapter(studentsList, studentIdList, this)
+        studentListAdapter = CourseStudentsAdapter(studentsList, studentIds, markList, this)
         recycler_view_course_students?.adapter = studentListAdapter
         studentListAdapter.notifyDataSetChanged()
 
         App.log("CourseStudentsAdapter list size = ${studentsList.size}")
         loadOff()
     }
+
+
 
     override fun onItemClicked(student: Student, studentId: String) {
         var dialog: AlertDialog
@@ -95,7 +95,11 @@ class CourseStudentsFragment : Fragment(), CourseStudentsAdapter.OnItemClickList
         builder.setMessage("Put mark to ${student.name}")
         val dialogClickListener = DialogInterface.OnClickListener{ _, which ->
             when(which){
-                DialogInterface.BUTTON_POSITIVE -> {listener?.putMark(dialogEditText.text.toString(), studentId, courseID)}
+                DialogInterface.BUTTON_POSITIVE -> {
+                    loadOn()
+                    listener?.putMark(dialogEditText.text.toString(), studentId, courseID)
+                    listener?.getCourseStudentsList(courseID)
+                }
                 DialogInterface.BUTTON_NEGATIVE -> toast("no")
             }
         }

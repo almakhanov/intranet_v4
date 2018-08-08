@@ -29,27 +29,64 @@ class TeacherMainInteractor(private val presenter: TeacherMainMVP.Presenter) : T
                 for(it in dataSnapshot.children){
                     studentIds.add(it.getValue(String::class.java)!!)
                 }
-                getStudentsData(studentIds)
+                getStudentsData(studentIds, courseId)
             }
 
         })
     }
 
-    private fun getStudentsData(studentIds: ArrayList<String>){
-        for(id in studentIds){
-            databaseReference.child(STUDENTS).child(id).addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onCancelled(databaseError: DatabaseError) {
-                    log(databaseError.toString())
-                }
+    private fun getStudentsData(studentIds: ArrayList<String>, courseId: String){
+        var studentsList: ArrayList<Student> = ArrayList()
+        databaseReference.child(STUDENTS).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onCancelled(databaseError: DatabaseError) {
+                log(databaseError.toString())
+            }
 
-                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    log("|||||||"+dataSnapshot.value.toString())
-                    var student = dataSnapshot.getValue(Student::class.java)
-                    presenter.sendStudentData(student!!, dataSnapshot.key!!)
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for((index, obj) in studentIds.withIndex()){
+                    for(it in dataSnapshot.children){
+                        if(it.key == obj){
+                            studentsList.add(it.getValue(Student::class.java)!!)
+                        }
+                    }
                 }
+                getStudentMarkData(studentIds, courseId, studentsList)
+            }
 
-            })
+        })
+
+    }
+
+    private fun getStudentMarkData(studentIds: ArrayList<String>, courseId: String, studentsList: ArrayList<Student>){
+        var markList: ArrayList<Int> = ArrayList()
+        for(it in studentsList){
+            markList.add(0)
         }
+
+        databaseReference.child(MARKS).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onCancelled(databaseError: DatabaseError) {
+                log(databaseError.toString())
+            }
+
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for((ind1, val1) in studentIds.withIndex()){
+                    for (it in dataSnapshot.children){
+                        if (it.key == val1){
+                            for(it2 in it.children){
+                                if(it2.key == courseId){
+                                    var mark = it2.getValue(Mark::class.java)
+                                    markList[ind1] = mark!!.value
+                                }
+                            }
+                        }
+                    }
+                }
+
+                presenter.sendStudentData(studentIds, courseId, studentsList, markList)
+
+            }
+
+        })
 
     }
 

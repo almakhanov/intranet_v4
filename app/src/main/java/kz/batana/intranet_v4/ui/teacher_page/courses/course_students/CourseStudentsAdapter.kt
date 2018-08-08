@@ -11,6 +11,7 @@ import kz.batana.intranet_v4.data.Entities.Student
 
 class CourseStudentsAdapter(private var dataset: ArrayList<Student>,
                             private var datasetId: ArrayList<String>,
+                            private var datasetMarks: ArrayList<Int>,
                             private val listener: OnItemClickListener)
     : RecyclerView.Adapter<CourseStudentsAdapter.StudentsViewHolder>() {
 
@@ -25,15 +26,17 @@ class CourseStudentsAdapter(private var dataset: ArrayList<Student>,
     }
 
     override fun onBindViewHolder(holder: StudentsViewHolder, position: Int) {
-        holder.bind(dataset[position])
+        holder.bind(dataset[position], datasetMarks[position])
     }
 
 
     inner class StudentsViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
-        fun bind(student: Student){
+        fun bind(student: Student, mark_: Int){
             val studentName = itemView.findViewById<TextView>(R.id.text_view_student_card_view_name)
+            val mark = itemView.findViewById<TextView>(R.id.text_view_card_view_student_score)
             studentName.text = student.name
+            mark.text = mark_.toString()
             itemView.setOnClickListener(this)
         }
 

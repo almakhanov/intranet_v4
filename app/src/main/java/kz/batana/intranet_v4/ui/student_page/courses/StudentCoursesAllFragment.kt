@@ -53,11 +53,11 @@ class StudentCoursesAllFragment : Fragment(), StudentCoursesAdapter.OnItemClickL
 
     override fun onStart() {
         super.onStart()
+        loadOn()
         courseList = ArrayList()
         teacherList = ArrayList()
         courseIdList = ArrayList()
         listener?.getCourseListWithTeachers()
-        loadOn()
     }
 
     override fun onResume() {

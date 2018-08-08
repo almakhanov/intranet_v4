@@ -144,9 +144,7 @@ class TeacherMainActivity : AppCompatActivity(), TeacherMainMVP.View, Navigation
         presenter.getCourseStudentsListForFragment(courseID)
     }
 
-    override fun sendStudentData(students: Student, studentsId: String) {
-        courseStudentsFragment.putCoursesListIntoRecyclerView(students,studentsId)
-    }
+
 
     override fun applyToolbarTitle(title: String) {
         actionbar?.apply {
@@ -186,6 +184,11 @@ class TeacherMainActivity : AppCompatActivity(), TeacherMainMVP.View, Navigation
     override fun sendTeacherInfo(teacher: Teacher, email: String) {
         teacherProfileFragment.setTeacherInfo(teacher, email)
     }
+
+    override fun sendStudentData(studentIds: ArrayList<String>, courseId: String, studentsList: ArrayList<Student>, markList: ArrayList<Int>) {
+        courseStudentsFragment.putCoursesListIntoRecyclerView(studentIds, courseId, studentsList, markList)
+    }
+
 
 
 }

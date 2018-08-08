@@ -6,18 +6,18 @@ import kz.batana.intranet_v4.data.Entities.Teacher
 
 interface TeacherMainMVP {
     interface View{
-        fun sendStudentData(studentsList: Student, studentsIdList: String)
         fun msg(message: String)
         fun sendTeacherInfo(teacher: Teacher, email: String)
+        fun sendStudentData(studentIds: ArrayList<String>, courseId: String, studentsList: ArrayList<Student>, markList: ArrayList<Int>)
     }
 
     interface Presenter{
-        fun sendStudentData(student: Student, studentId: String)
         fun getCourseStudentsListForFragment(courseID: String)
         fun putMark(markValue: String, studentId: String, courseId: String)
         fun onSuccessMessage(message: String)
         fun getTeacherProfile()
         fun sendTeacherInfo(teacher: Teacher, email: String)
+        fun sendStudentData(studentIds: ArrayList<String>, courseId: String, studentsList: ArrayList<Student>, markList: ArrayList<Int>)
     }
 
     interface Interactor {

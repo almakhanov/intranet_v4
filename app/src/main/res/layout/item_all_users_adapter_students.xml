@@ -33,6 +33,7 @@
 
             <TextView
                 android:id="@+id/text_view_student_card_view_name"
+                android:maxWidth="250dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Name"
@@ -42,6 +43,19 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_margin="8dp"
                 android:layout_marginLeft="24dp"/>
+
+            <TextView
+                android:id="@+id/text_view_card_view_student_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_marginLeft="24dp"
+                android:text="0.00"
+                android:textColor="#777"
+                android:textSize="16sp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </android.support.constraint.ConstraintLayout>
 
