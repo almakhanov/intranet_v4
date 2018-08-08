@@ -6,10 +6,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.ProgressBar
 import kotlinx.android.synthetic.main.fragment_teacher_courses.*
 import kz.batana.intranet_v4.App.Companion.log
 import kz.batana.intranet_v4.R
@@ -34,8 +36,14 @@ class TeacherCoursesFragment : Fragment(), TeacherCoursesMVP.View, TeacherCourse
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_teacher_courses, container, false)
-        presenter.getCourseList()
+
         return view
+    }
+
+    override fun onStart() {
+        super.onStart()
+        loadOn()
+        presenter.getCourseList()
     }
 
     override fun onAttach(context: Context) {
@@ -69,11 +77,24 @@ class TeacherCoursesFragment : Fragment(), TeacherCoursesMVP.View, TeacherCourse
         teacherListAdapter.notifyDataSetChanged()
 
         log("arr list size = ${courseList.size}")
+        loadOff()
     }
 
     override fun onItemClicked(course: Course, courseId: String) {
         listener?.openCourseStudentsList(course, courseId)
     }
+
+    private fun loadOn(){
+        progress_bar_teacher_courses.visibility = ProgressBar.VISIBLE
+        recycler_view_teacher_courses_list.visibility = RecyclerView.GONE
+    }
+
+    private fun loadOff(){
+        progress_bar_teacher_courses.visibility = ProgressBar.GONE
+        recycler_view_teacher_courses_list.visibility = RecyclerView.VISIBLE
+    }
+
+
 
 
 }

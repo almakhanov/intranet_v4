@@ -111,7 +111,7 @@ class StudentCoursesAllFragment : Fragment(), StudentCoursesAdapter.OnItemClickL
         courseListAdapter = StudentCoursesAdapter(courseList, teacherList, courseIdList, this)
         recycler_view_student_courses_all_list?.adapter = courseListAdapter
         courseListAdapter.notifyDataSetChanged()
-
+        courseListAdapter.filter(edit_text_student_courses_all_search.text.toString())
         log("arr list size = ${courseList.size}")
         loadOff()
     }

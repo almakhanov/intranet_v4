@@ -7,11 +7,13 @@ import android.content.DialogInterface
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.LinearLayout
+import android.widget.ProgressBar
 import kotlinx.android.synthetic.main.fragment_course_students.*
 import kz.batana.intranet_v4.App
 import kz.batana.intranet_v4.R
@@ -49,6 +51,11 @@ class CourseStudentsFragment : Fragment(), CourseStudentsAdapter.OnItemClickList
         return view
     }
 
+    override fun onStart() {
+        super.onStart()
+        loadOn()
+    }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is TeacherMainMVP.CourseStudentsFragementListener) {
@@ -75,6 +82,7 @@ class CourseStudentsFragment : Fragment(), CourseStudentsAdapter.OnItemClickList
         studentListAdapter.notifyDataSetChanged()
 
         App.log("CourseStudentsAdapter list size = ${studentsList.size}")
+        loadOff()
     }
 
     override fun onItemClicked(student: Student, studentId: String) {
@@ -108,6 +116,16 @@ class CourseStudentsFragment : Fragment(), CourseStudentsAdapter.OnItemClickList
                         putString(ARG_PARAM, courseId)
                     }
                 }
+    }
+
+    private fun loadOn(){
+        progress_bar_teacher_course_students.visibility = ProgressBar.VISIBLE
+        recycler_view_course_students.visibility = RecyclerView.GONE
+    }
+
+    private fun loadOff(){
+        progress_bar_teacher_course_students.visibility = ProgressBar.GONE
+        recycler_view_course_students.visibility = RecyclerView.VISIBLE
     }
 
 
