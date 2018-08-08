@@ -1,5 +1,7 @@
 package kz.batana.intranet_v4.ui.student_page
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.NavigationView
@@ -69,17 +71,6 @@ class StudentMainActivity : AppCompatActivity(), StudentMainMVP.View, StudentMai
 
 
         presenter.getStudentData()
-
-//        text_student_main.text = firebaseAuth.currentUser!!.email
-//
-//        logout.setOnClickListener{
-//            firebaseAuth.signOut()
-//            startActivity(Intent(this, SignInActivity::class.java))
-//            App.roleOfUser = AppConstants.ANONYMOUS
-//            finish()
-//        }
-
-
     }
 
     override fun getProfileInfo() {
@@ -117,7 +108,7 @@ class StudentMainActivity : AppCompatActivity(), StudentMainMVP.View, StudentMai
                 createFragment(studentCoursesAllFragment, R.id.container_student_main)
             }
             R.id.navigation_student_about -> {
-                //TODO information in dialog
+                openAboutDialog()
             }
             R.id.navigation_student_logout -> {
                 firebaseAuth.signOut()
@@ -191,6 +182,23 @@ class StudentMainActivity : AppCompatActivity(), StudentMainMVP.View, StudentMai
 
     override fun sendStudentInfo(student: Student, email: String, gpa: String) {
         studentProfileFragment.sendStudentData(student, email, gpa)
+    }
+
+    private fun openAboutDialog(){
+        var dialog: AlertDialog
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("About")
+        builder.setMessage("This is Intranet application for universities.\nMade by Nursultan Almakhanov\n2018\nVersion: 4.0.1")
+        val dialogClickListener = DialogInterface.OnClickListener{ _, which ->
+            when(which){
+                DialogInterface.BUTTON_POSITIVE -> msg("Thank you!")
+            }
+        }
+
+        builder.setPositiveButton("OK", dialogClickListener)
+
+        dialog = builder.create()
+        dialog.show()
     }
 
 }

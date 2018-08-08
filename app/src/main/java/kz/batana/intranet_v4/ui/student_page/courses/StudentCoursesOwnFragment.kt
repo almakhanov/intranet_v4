@@ -5,10 +5,12 @@ import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.ProgressBar
 import kotlinx.android.synthetic.main.fragment_student_courses_own.*
 import kz.batana.intranet_v4.App.Companion.log
 import kz.batana.intranet_v4.R
@@ -37,6 +39,11 @@ class StudentCoursesOwnFragment : Fragment(), StudentOwnCoursesAdater.OnItemClic
         return view
     }
 
+    override fun onStart() {
+        super.onStart()
+        loadOn()
+    }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is StudentMainMVP.StudentCoursesAllFragementListener) {
@@ -60,10 +67,22 @@ class StudentCoursesOwnFragment : Fragment(), StudentOwnCoursesAdater.OnItemClic
         courseListAdapter.notifyDataSetChanged()
 
         log("arr list size = ${markList.size}")
+        loadOff()
     }
 
     override fun onCourseClicked(course: Course, markValue: Int, courseId: String) {
 
+    }
+
+    private fun loadOn(){
+        progress_bar_student_courses_own.visibility = ProgressBar.VISIBLE
+        recycler_view_student_courses_own_list.visibility = RecyclerView.GONE
+    }
+
+
+    private fun loadOff(){
+        progress_bar_student_courses_own.visibility = ProgressBar.GONE
+        recycler_view_student_courses_own_list.visibility = RecyclerView.VISIBLE
     }
 
 }

@@ -37,8 +37,7 @@ class StudentProfileFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        layout_student_profile_box1.visibility = ConstraintLayout.GONE
-        layout_student_profile_box2.visibility = ConstraintLayout.GONE
+        loadOn()
     }
 
     override fun onAttach(context: Context) {
@@ -61,10 +60,22 @@ class StudentProfileFragment : Fragment() {
         text_view_student_profile_gpa_value.text = gpa
         text_view_student_profile_year_value.text = student.yearOfStudy.toString()
         text_view_student_profile_age_value.text = student.age.toString()
+        loadOff()
+    }
+
+
+    private fun loadOn(){
+        layout_student_profile_box1.visibility = ConstraintLayout.GONE
+        layout_student_profile_box2.visibility = ConstraintLayout.GONE
+        progress_bar_student_profile.visibility = ProgressBar.VISIBLE
+    }
+
+    private fun loadOff(){
         progress_bar_student_profile.visibility = ProgressBar.GONE
         layout_student_profile_box1.visibility = ConstraintLayout.VISIBLE
         layout_student_profile_box2.visibility = ConstraintLayout.VISIBLE
     }
+
 
 
 }

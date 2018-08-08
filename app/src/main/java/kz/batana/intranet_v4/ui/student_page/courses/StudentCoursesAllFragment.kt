@@ -7,10 +7,12 @@ import android.content.DialogInterface
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.ProgressBar
 import kotlinx.android.synthetic.main.fragment_student_courses_all.*
 import kz.batana.intranet_v4.App.Companion.log
 import kz.batana.intranet_v4.R
@@ -52,6 +54,11 @@ class StudentCoursesAllFragment : Fragment(), StudentCoursesAdapter.OnItemClickL
         }
     }
 
+    override fun onStart() {
+        super.onStart()
+        loadOn()
+    }
+
     override fun onResume() {
         super.onResume()
         button_student_courses_all_search.setOnClickListener{
@@ -73,6 +80,7 @@ class StudentCoursesAllFragment : Fragment(), StudentCoursesAdapter.OnItemClickL
         val dialogClickListener = DialogInterface.OnClickListener{ _, which ->
             when(which){
                 DialogInterface.BUTTON_POSITIVE -> {
+                    loadOn()
                     courseList = ArrayList()
                     teacherList = ArrayList()
                     courseIdList = ArrayList()
@@ -105,8 +113,19 @@ class StudentCoursesAllFragment : Fragment(), StudentCoursesAdapter.OnItemClickL
         courseListAdapter.notifyDataSetChanged()
 
         log("arr list size = ${courseList.size}")
+        loadOff()
     }
 
+
+    private fun loadOn(){
+        progress_bar_student_courses_all.visibility = ProgressBar.VISIBLE
+        recycler_view_student_courses_all_list.visibility = RecyclerView.GONE
+    }
+
+    private fun loadOff(){
+        progress_bar_student_courses_all.visibility = ProgressBar.GONE
+        recycler_view_student_courses_all_list.visibility = RecyclerView.VISIBLE
+    }
 
 
 
