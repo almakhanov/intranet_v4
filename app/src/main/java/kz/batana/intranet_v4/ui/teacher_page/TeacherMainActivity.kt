@@ -21,6 +21,7 @@ import kz.batana.intranet_v4.AppConstants
 import kz.batana.intranet_v4.R
 import kz.batana.intranet_v4.data.Entities.Course
 import kz.batana.intranet_v4.data.Entities.Student
+import kz.batana.intranet_v4.data.Entities.Teacher
 import kz.batana.intranet_v4.ui.sign_in.SignInActivity
 import kz.batana.intranet_v4.ui.teacher_page.courses.TeacherCoursesFragment
 import kz.batana.intranet_v4.ui.teacher_page.courses.course_students.CourseStudentsFragment
@@ -176,6 +177,14 @@ class TeacherMainActivity : AppCompatActivity(), TeacherMainMVP.View, Navigation
 
         dialog = builder.create()
         dialog.show()
+    }
+
+    override fun getTeacherProfile() {
+        presenter.getTeacherProfile()
+    }
+
+    override fun sendTeacherInfo(teacher: Teacher, email: String) {
+        teacherProfileFragment.setTeacherInfo(teacher, email)
     }
 
 

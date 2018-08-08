@@ -1,6 +1,7 @@
 package kz.batana.intranet_v4.ui.teacher_page
 
 import kz.batana.intranet_v4.data.Entities.Student
+import kz.batana.intranet_v4.data.Entities.Teacher
 
 class TeacherMainPresenter(private val view: TeacherMainMVP.View) : TeacherMainMVP.Presenter {
 
@@ -8,6 +9,14 @@ class TeacherMainPresenter(private val view: TeacherMainMVP.View) : TeacherMainM
 
     override fun sendStudentData(student: Student, studentId: String) {
         view.sendStudentData(student,studentId)
+    }
+
+    override fun getTeacherProfile() {
+        interactor.getTeacherProfile()
+    }
+
+    override fun sendTeacherInfo(teacher: Teacher, email: String) {
+        view.sendTeacherInfo(teacher, email)
     }
 
     override fun getCourseStudentsListForFragment(courseID: String) {

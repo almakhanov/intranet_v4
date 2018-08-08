@@ -16,7 +16,7 @@ class CourseStudentsAdapter(private var dataset: ArrayList<Student>,
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StudentsViewHolder {
 
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_courses_card, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_all_users_adapter_students, parent, false)
         return StudentsViewHolder(view)
     }
 
@@ -32,7 +32,7 @@ class CourseStudentsAdapter(private var dataset: ArrayList<Student>,
     inner class StudentsViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
         fun bind(student: Student){
-            val studentName = itemView.findViewById<TextView>(R.id.text_view_course_card_view_name)
+            val studentName = itemView.findViewById<TextView>(R.id.text_view_student_card_view_name)
             studentName.text = student.name
             itemView.setOnClickListener(this)
         }
