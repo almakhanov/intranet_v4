@@ -10,11 +10,26 @@ import kz.batana.intranet_v4.R
 import kz.batana.intranet_v4.data.Entities.Course
 import kz.batana.intranet_v4.data.Entities.Teacher
 
-class StudentCoursesAdapter(private var datasetCourses: ArrayList<Course>,
-                            private var datasetTeachers: ArrayList<Teacher>,
-                            private var courseIdList: ArrayList<String>,
+class StudentCoursesAdapter(private var Courses: ArrayList<Course>,
+                            private var Teachers: ArrayList<Teacher>,
+                            private var courseIds: ArrayList<String>,
                             private val listener: OnItemClickListener)
     : RecyclerView.Adapter<StudentCoursesAdapter.CoursesViewHolder>() {
+
+
+    private var datasetCourses: ArrayList<Course> = Courses
+    private var datasetTeachers: ArrayList<Teacher> = Teachers
+    private var courseIdList: ArrayList<String> = courseIds
+
+    private var dataFilter = CourseListFilter(datasetCourses)
+    private var indexes: ArrayList<Int> = ArrayList()
+
+    fun filter(year: String){
+        indexes = dataFilter.findByYear(year)
+        datasetCourses = dataFilter.getNewCourses(indexes, Courses)
+        datasetTeachers = dataFilter.getNewTeachers(indexes, Teachers)
+        courseIdList = dataFilter.getNewCoursesIds(indexes, courseIds)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoursesViewHolder {
 

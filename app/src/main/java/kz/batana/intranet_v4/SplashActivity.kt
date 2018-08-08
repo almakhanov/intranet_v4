@@ -22,7 +22,6 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         if(firebaseAuth.currentUser != null){
             openActivityByCurrentUser()
         }else{

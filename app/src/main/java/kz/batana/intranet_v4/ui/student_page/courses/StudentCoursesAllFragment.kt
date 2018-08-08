@@ -52,6 +52,13 @@ class StudentCoursesAllFragment : Fragment(), StudentCoursesAdapter.OnItemClickL
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        button_student_courses_all_search.setOnClickListener{
+            courseListAdapter.filter(edit_text_student_courses_all_search.text.toString())
+        }
+    }
+
     override fun onDetach() {
         super.onDetach()
         listener = null
@@ -69,6 +76,7 @@ class StudentCoursesAllFragment : Fragment(), StudentCoursesAdapter.OnItemClickL
                     teacherList = ArrayList()
                     courseIdList = ArrayList()
                     listener?.saveCourse(course, teacher, courseId)
+                    listener?.getCourseListWithTeachers()
                 }
 
                 DialogInterface.BUTTON_NEGATIVE -> listener?.msg("Choice cancelled!")

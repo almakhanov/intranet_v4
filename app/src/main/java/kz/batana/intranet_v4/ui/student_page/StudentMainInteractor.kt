@@ -20,9 +20,10 @@ import kz.batana.intranet_v4.data.Entities.Teacher
 
 class StudentMainInteractor(private val presenter: StudentMainMVP.Presenter) : StudentMainMVP.Interactor {
 
+    val studentId = App.firebaseAuth.currentUser!!.uid
 
     override fun getCourseListWithTeachers() {
-        databaseReference.child(COURSES).addValueEventListener(object : ValueEventListener {
+        databaseReference.child(COURSES).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onCancelled(databaseError: DatabaseError) {
                 log(databaseError.toString())
             }
@@ -47,7 +48,7 @@ class StudentMainInteractor(private val presenter: StudentMainMVP.Presenter) : S
     }
 
     private fun getTeacherObject(list: ArrayList<Course>, teacherId: String, idList: ArrayList<String>){
-        databaseReference.child(TEACHERS).child(teacherId).addValueEventListener(object : ValueEventListener {
+        databaseReference.child(TEACHERS).child(teacherId).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onCancelled(databaseError: DatabaseError) {
                 log(databaseError.toString())
             }
@@ -63,10 +64,9 @@ class StudentMainInteractor(private val presenter: StudentMainMVP.Presenter) : S
     }
 
     private fun analyzeCourseTeacherData(list: ArrayList<Course>, teacher: Teacher, idList: ArrayList<String>){
-        val studentId = firebaseAuth.currentUser!!.uid
         var courseOwnList: ArrayList<Course> = ArrayList()
         var courseOwnIdsList : ArrayList<String> = ArrayList()
-        databaseReference.child(STUDENT_COURSES).child(studentId).addValueEventListener(object: ValueEventListener{
+        databaseReference.child(STUDENT_COURSES).child(studentId).addListenerForSingleValueEvent(object: ValueEventListener{
             override fun onCancelled(p0: DatabaseError) {
                 log(p0.message)
             }
@@ -86,8 +86,7 @@ class StudentMainInteractor(private val presenter: StudentMainMVP.Presenter) : S
     }
 
     override fun getStudentData() {
-        val studentId = firebaseAuth.currentUser!!.uid
-        databaseReference.child(STUDENTS).child(studentId).addValueEventListener(object: ValueEventListener{
+        databaseReference.child(STUDENTS).child(studentId).addListenerForSingleValueEvent(object: ValueEventListener{
             override fun onCancelled(p0: DatabaseError) {
                 log(p0.message)
             }
@@ -102,8 +101,7 @@ class StudentMainInteractor(private val presenter: StudentMainMVP.Presenter) : S
 
     override fun getProfileInfo() {
         var email = firebaseAuth.currentUser!!.email
-        val studentId = firebaseAuth.currentUser!!.uid
-        databaseReference.child(STUDENTS).child(studentId).addValueEventListener(object: ValueEventListener{
+        databaseReference.child(STUDENTS).child(studentId).addListenerForSingleValueEvent(object: ValueEventListener{
             override fun onCancelled(p0: DatabaseError) {
                 log(p0.message)
             }
@@ -119,7 +117,7 @@ class StudentMainInteractor(private val presenter: StudentMainMVP.Presenter) : S
         var studentCourses: ArrayList<Course> = ArrayList()
         var studentCoursesIds: ArrayList<String> = ArrayList()
         var studentMarkList: ArrayList<Int> = ArrayList()
-        databaseReference.child(STUDENT_COURSES).child(studentId).addValueEventListener(object: ValueEventListener{
+        databaseReference.child(STUDENT_COURSES).child(studentId).addListenerForSingleValueEvent(object: ValueEventListener{
             override fun onCancelled(p0: DatabaseError) {
                 log(p0.message)
             }
@@ -137,7 +135,8 @@ class StudentMainInteractor(private val presenter: StudentMainMVP.Presenter) : S
     }
 
     private fun getProfileInfoMark(student: Student, email: String, studentId: String, studentCourses: ArrayList<Course>, studentCoursesIds: ArrayList<String>, studentMarkList: ArrayList<Int>) {
-        databaseReference.child(MARKS).child(studentId).addValueEventListener(object: ValueEventListener{
+
+        databaseReference.child(MARKS).child(studentId).addListenerForSingleValueEvent(object: ValueEventListener{
             override fun onCancelled(p0: DatabaseError) {
                 log(p0.message)
             }
@@ -152,8 +151,9 @@ class StudentMainInteractor(private val presenter: StudentMainMVP.Presenter) : S
                         }
                     }
                 }
+                //TODO WHY THIS happens
+                log("ERROR")
                 presenter.sendProfileInfo(student, email, studentId, studentCourses, studentCoursesIds, studentMarkList)
-
             }
 
         })
@@ -161,9 +161,8 @@ class StudentMainInteractor(private val presenter: StudentMainMVP.Presenter) : S
 
 
     override fun getTranscriptData() {
-        val studentId = firebaseAuth.currentUser!!.uid
 
-        databaseReference.child(MARKS).child(studentId).addValueEventListener(object: ValueEventListener{
+        databaseReference.child(MARKS).child(studentId).addListenerForSingleValueEvent(object: ValueEventListener{
             override fun onCancelled(p0: DatabaseError) {
                 log(p0.message)
             }
@@ -182,10 +181,9 @@ class StudentMainInteractor(private val presenter: StudentMainMVP.Presenter) : S
     }
 
     private fun getCoursesData(marks: ArrayList<Mark>, courseIds: ArrayList<String>) {
-        val studentId = firebaseAuth.currentUser!!.uid
         var courseList: ArrayList<Course> = ArrayList()
         var courseIdsList : ArrayList<String> = ArrayList()
-        databaseReference.child(STUDENT_COURSES).child(studentId).addValueEventListener(object: ValueEventListener{
+        databaseReference.child(STUDENT_COURSES).child(studentId).addListenerForSingleValueEvent(object: ValueEventListener{
             override fun onCancelled(p0: DatabaseError) {
                 log(p0.message)
             }
@@ -203,8 +201,7 @@ class StudentMainInteractor(private val presenter: StudentMainMVP.Presenter) : S
     }
 
     override fun getCourseOwnList() {
-        val studentId = firebaseAuth.currentUser!!.uid
-        databaseReference.child(STUDENT_COURSES).child(studentId).addValueEventListener(object : ValueEventListener {
+        databaseReference.child(STUDENT_COURSES).child(studentId).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onCancelled(databaseError: DatabaseError) {
                 log(databaseError.toString())
             }
@@ -225,7 +222,6 @@ class StudentMainInteractor(private val presenter: StudentMainMVP.Presenter) : S
     }
 
     override fun saveCourse(course: Course, courseId: String) {
-        val studentId = App.firebaseAuth.currentUser!!.uid
         databaseReference.child(STUDENT_COURSES).child(studentId).child(courseId).setValue(course)
         val ukey = databaseReference.child(COURSE_STUDENTS).child(courseId).push().key.toString()
         databaseReference.child(COURSE_STUDENTS).child(courseId).child(ukey).setValue(studentId)
