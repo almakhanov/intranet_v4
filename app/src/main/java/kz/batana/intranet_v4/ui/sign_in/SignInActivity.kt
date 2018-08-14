@@ -13,10 +13,13 @@ import kz.batana.intranet_v4.ui.admin_page.AdminMainActivity
 import kz.batana.intranet_v4.ui.sign_in.sign_up.SignUpActivity
 import kz.batana.intranet_v4.ui.student_page.StudentMainActivity
 import kz.batana.intranet_v4.ui.teacher_page.TeacherMainActivity
+import org.koin.android.ext.android.inject
+import org.koin.core.parameter.parametersOf
+import org.koin.standalone.KoinComponent
 
-class SignInActivity : AppCompatActivity(), SignInMVP.View {
+class SignInActivity : AppCompatActivity(), SignInContract.View, KoinComponent {
 
-    private val presenter : SignInMVP.Presenter by lazy{ SignInPresenter(this) }
+    override val presenter : SignInContract.Presenter by inject { parametersOf(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +28,6 @@ class SignInActivity : AppCompatActivity(), SignInMVP.View {
         button_sign_up.setOnClickListener{
             startActivity(Intent(this, SignUpActivity::class.java))
         }
-
 
         button_login_sign_in.setOnClickListener{
             button_login_sign_in.isEnabled = false
@@ -56,5 +58,6 @@ class SignInActivity : AppCompatActivity(), SignInMVP.View {
         startActivity(userIntent)
         finish()
     }
+
 
 }

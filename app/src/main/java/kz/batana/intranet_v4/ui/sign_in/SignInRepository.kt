@@ -12,17 +12,17 @@ import kz.batana.intranet_v4.AppConstants.ADMIN
 import kz.batana.intranet_v4.AppConstants.STUDENT
 import kz.batana.intranet_v4.AppConstants.TEACHER
 
-class SignInInteractor(private val presenter: SignInMVP.Presenter) : SignInMVP.Interactor {
+class SignInRepository : SignInContract.Repository {
 
-    override fun authorize(username: String, password: String) {
+    override fun authorize(username: String, password: String, presenter: SignInContract.Presenter) {
         firebaseAuth.signInWithEmailAndPassword(username, password)
                 .addOnCompleteListener{
-                    if(it.isSuccessful) openActivityByCurrentUser()
+                    if(it.isSuccessful) openActivityByCurrentUser(presenter)
                     else presenter.onFailed(it.exception!!)
                 }
     }
 
-    private fun openActivityByCurrentUser(){
+    private fun openActivityByCurrentUser(presenter: SignInContract.Presenter){
         val currentUserId = firebaseAuth.currentUser!!.uid
 
         log("currentUserId=$currentUserId")

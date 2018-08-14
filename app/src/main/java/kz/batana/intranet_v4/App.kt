@@ -6,8 +6,10 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import kz.batana.intranet_v4.AppConstants.ANONYMOUS
+import org.koin.android.ext.android.startKoin
 
-class App : Application() {
+class App : Application()  {
+
 
     companion object {
         lateinit var databaseReference : DatabaseReference
@@ -22,6 +24,7 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         log("App is loading")
+        startKoin(this, listOf(appModule))
         firebaseAuth = FirebaseAuth.getInstance()
         databaseReference = FirebaseDatabase.getInstance().reference
     }

@@ -73,6 +73,12 @@ dependencies {
     //show & hide password library
     implementation 'com.github.scottyab:showhidepasswordedittext:0.8'
 
+    //koin
+    implementation 'org.koin:koin-android:1.0.0-beta-4'
+
+
+
+
     kotlin {
         experimental {
             coroutines "enable"
