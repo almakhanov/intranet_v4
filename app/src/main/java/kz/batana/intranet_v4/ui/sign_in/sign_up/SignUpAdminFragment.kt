@@ -13,7 +13,7 @@ import kz.batana.intranet_v4.R
 
 class SignUpAdminFragment : Fragment() {
 
-    private var listener: SignUpMVP.AdminFragmentListener? = null
+    private var listener: SignUpContract.AdminFragmentListener? = null
 
     companion object {
         @JvmStatic
@@ -27,7 +27,7 @@ class SignUpAdminFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is SignUpMVP.AdminFragmentListener) {
+        if (context is SignUpContract.AdminFragmentListener) {
             listener = context as SignUpActivity
         } else {
             throw RuntimeException(context.toString() + " must implement AdminFragmentListener")

@@ -16,11 +16,14 @@ import kz.batana.intranet_v4.R
 import kz.batana.intranet_v4.ui.admin_page.AdminMainActivity
 import kz.batana.intranet_v4.ui.student_page.StudentMainActivity
 import kz.batana.intranet_v4.ui.teacher_page.TeacherMainActivity
+import org.koin.android.ext.android.inject
+import org.koin.core.parameter.parametersOf
+import org.koin.standalone.KoinComponent
 
-class SignUpActivity : AppCompatActivity(), SignUpMVP.View, SignUpMVP.StudentFragmentListener,
-        SignUpMVP.AdminFragmentListener, SignUpMVP.TeacherFragmentListener {
+class SignUpActivity : AppCompatActivity(), SignUpContract.View, SignUpContract.StudentFragmentListener,
+        SignUpContract.AdminFragmentListener, SignUpContract.TeacherFragmentListener, KoinComponent {
 
-    private val presenter : SignUpMVP.Presenter by lazy{ SignUpPresenter(this) }
+    override val presenter : SignUpContract.Presenter by inject { parametersOf(this) }
 
     private lateinit var studentsFragment: SignUpStudentFragment
     private lateinit var teacherFragment: SignUpTeacherFragment

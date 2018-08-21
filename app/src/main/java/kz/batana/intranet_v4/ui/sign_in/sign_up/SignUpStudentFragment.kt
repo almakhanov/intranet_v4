@@ -12,7 +12,7 @@ import kz.batana.intranet_v4.R
 
 class SignUpStudentFragment : Fragment() {
 
-    private var listener: SignUpMVP.StudentFragmentListener? = null
+    private var listener: SignUpContract.StudentFragmentListener? = null
 
     companion object {
         @JvmStatic
@@ -26,7 +26,7 @@ class SignUpStudentFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is SignUpMVP.StudentFragmentListener) {
+        if (context is SignUpContract.StudentFragmentListener) {
             listener = context as SignUpActivity
         } else {
             throw RuntimeException(context.toString() + " must implement StudentFragmentListener")

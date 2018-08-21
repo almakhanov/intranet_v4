@@ -12,11 +12,11 @@ import kz.batana.intranet_v4.data.Entities.Teacher
 import kz.batana.intranet_v4.data.Entities.User
 
 
-class SignUpInteractor(private val presenter: SignUpMVP.Presenter) : SignUpMVP.Interactor {
+class SignUpRepository : SignUpContract.Repository {
 
     private var currentAuthorizingUserUID = "currentAuthorizingUserUID"
 
-    override fun registerUserIntoFirebaseAuth(user: User) {
+    override fun registerUserIntoFirebaseAuth(user: User, presenter: SignUpContract.Presenter) {
         firebaseAuth.createUserWithEmailAndPassword(user.username, user.password)
                 .addOnCompleteListener {
                     if (it.isSuccessful) {
@@ -29,17 +29,17 @@ class SignUpInteractor(private val presenter: SignUpMVP.Presenter) : SignUpMVP.I
                 }
     }
 
-    override fun saveNewStudent(student: Student) {
+    override fun saveNewStudent(student: Student, presenter: SignUpContract.Presenter) {
         log("student is saving -> $student")
         databaseReference.child(STUDENTS).child(currentAuthorizingUserUID).setValue(student)
     }
 
-    override fun saveNewAdmin(admin: Admin) {
+    override fun saveNewAdmin(admin: Admin, presenter: SignUpContract.Presenter) {
         log("admin is saving -> $admin")
         databaseReference.child(ADMINS).child(currentAuthorizingUserUID).setValue(admin)
     }
 
-    override fun saveNewTeacher(teacher: Teacher) {
+    override fun saveNewTeacher(teacher: Teacher, presenter: SignUpContract.Presenter) {
         log("teacher is saving -> $teacher")
         databaseReference.child(TEACHERS).child(currentAuthorizingUserUID).setValue(teacher)
     }

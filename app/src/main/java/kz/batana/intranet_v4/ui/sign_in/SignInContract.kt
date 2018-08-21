@@ -4,6 +4,7 @@ import kz.batana.intranet_v4.BasePresenter
 import kz.batana.intranet_v4.BaseView
 
 interface SignInContract {
+
     interface View : BaseView<Presenter>{
         fun msg(message: String)
         fun openUserProfile(userType: String)
