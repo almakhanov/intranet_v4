@@ -2,8 +2,8 @@ package kz.batana.intranet_v4.ui.sign_in
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_sign_in.*
 import kz.batana.intranet_v4.AppConstants.ADMIN
 import kz.batana.intranet_v4.AppConstants.STUDENT
@@ -14,8 +14,8 @@ import kz.batana.intranet_v4.ui.sign_in.sign_up.SignUpActivity
 import kz.batana.intranet_v4.ui.student_page.StudentMainActivity
 import kz.batana.intranet_v4.ui.teacher_page.TeacherMainActivity
 import org.koin.android.ext.android.inject
+import org.koin.core.component.KoinComponent
 import org.koin.core.parameter.parametersOf
-import org.koin.standalone.KoinComponent
 
 class SignInActivity : AppCompatActivity(), SignInContract.View, KoinComponent {
 

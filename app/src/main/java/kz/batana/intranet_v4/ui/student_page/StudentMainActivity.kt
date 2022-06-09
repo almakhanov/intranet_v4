@@ -4,15 +4,15 @@ import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.NavigationView
-import android.support.v4.app.Fragment
-import android.support.v4.view.GravityCompat
-import android.support.v7.app.ActionBar
-import android.support.v7.app.ActionBarDrawerToggle
-import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.ActionBar
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
+import androidx.fragment.app.Fragment
+import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_student_main.*
 import kz.batana.intranet_v4.App
 import kz.batana.intranet_v4.App.Companion.firebaseAuth
@@ -188,7 +188,7 @@ class StudentMainActivity : AppCompatActivity(), StudentMainMVP.View, StudentMai
         var dialog: AlertDialog
         val builder = AlertDialog.Builder(this)
         builder.setTitle("About")
-        builder.setMessage("This is Intranet application for universities.\nMade by Nursultan Almakhanov\n2018\nVersion: 4.0.1")
+        builder.setMessage("This is Intranet application for universities.\nMade by Akmaral Kuanyshbek Almakhanov\n2022\nVersion: 4.0.1")
         val dialogClickListener = DialogInterface.OnClickListener{ _, which ->
             when(which){
                 DialogInterface.BUTTON_POSITIVE -> msg("Thank you!")

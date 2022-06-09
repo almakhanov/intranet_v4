@@ -3,7 +3,7 @@ package kz.batana.intranet_v4.ui.sign_in
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
-import org.koin.standalone.KoinComponent
+import org.koin.core.component.KoinComponent
 
 class SignInPresenter(private val repository: SignInContract.Repository, override var view : SignInContract.View?)
     : SignInContract.Presenter, KoinComponent {

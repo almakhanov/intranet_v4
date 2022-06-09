@@ -5,22 +5,21 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.LinearLayout
 import android.widget.ProgressBar
+import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_course_students.*
 import kz.batana.intranet_v4.App
 import kz.batana.intranet_v4.R
 import kz.batana.intranet_v4.data.Entities.Student
 import kz.batana.intranet_v4.ui.teacher_page.TeacherMainActivity
 import kz.batana.intranet_v4.ui.teacher_page.TeacherMainMVP
-import org.jetbrains.anko.support.v4.toast
 
 const val ARG_PARAM = "new_instance"
 
@@ -38,7 +37,7 @@ class CourseStudentsFragment : Fragment(), CourseStudentsAdapter.OnItemClickList
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            courseID = it.getString(ARG_PARAM)
+            courseID = it.getString(ARG_PARAM).orEmpty()
         }
     }
 
@@ -73,7 +72,7 @@ class CourseStudentsFragment : Fragment(), CourseStudentsAdapter.OnItemClickList
     }
 
     fun putCoursesListIntoRecyclerView(studentIds: ArrayList<String>, courseId: String, studentsList: ArrayList<Student>, markList: ArrayList<Int>){
-        var layout = LinearLayoutManager(activity, LinearLayout.VERTICAL, false)
+        var layout = LinearLayoutManager(activity)
         recycler_view_course_students?.layoutManager = layout
         studentListAdapter = CourseStudentsAdapter(studentsList, studentIds, markList, this)
         recycler_view_course_students?.adapter = studentListAdapter
@@ -100,7 +99,7 @@ class CourseStudentsFragment : Fragment(), CourseStudentsAdapter.OnItemClickList
                     listener?.putMark(dialogEditText.text.toString(), studentId, courseID)
                     listener?.getCourseStudentsList(courseID)
                 }
-                DialogInterface.BUTTON_NEGATIVE -> toast("Choice canceled!")
+                DialogInterface.BUTTON_NEGATIVE -> Toast.makeText(context, "Choice canceled!", Toast.LENGTH_LONG).show()
             }
         }
 

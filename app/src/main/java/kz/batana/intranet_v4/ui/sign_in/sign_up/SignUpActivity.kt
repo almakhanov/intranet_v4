@@ -2,11 +2,11 @@ package kz.batana.intranet_v4.ui.sign_in.sign_up
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.ActionBar
-import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.appcompat.app.ActionBar
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import kz.batana.intranet_v4.App.Companion.roleOfUser
 import kz.batana.intranet_v4.AppConstants.ADMIN
@@ -17,11 +17,12 @@ import kz.batana.intranet_v4.ui.admin_page.AdminMainActivity
 import kz.batana.intranet_v4.ui.student_page.StudentMainActivity
 import kz.batana.intranet_v4.ui.teacher_page.TeacherMainActivity
 import org.koin.android.ext.android.inject
+import org.koin.core.component.KoinComponent
 import org.koin.core.parameter.parametersOf
-import org.koin.standalone.KoinComponent
 
 class SignUpActivity : AppCompatActivity(), SignUpContract.View, SignUpContract.StudentFragmentListener,
-        SignUpContract.AdminFragmentListener, SignUpContract.TeacherFragmentListener, KoinComponent {
+        SignUpContract.AdminFragmentListener, SignUpContract.TeacherFragmentListener,
+    KoinComponent {
 
     override val presenter : SignUpContract.Presenter by inject { parametersOf(this) }
 

@@ -3,12 +3,12 @@ package kz.batana.intranet_v4.ui.admin_page
 
 import android.content.Context
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_admin_main_student_list.*
 import kz.batana.intranet_v4.App.Companion.log
 import kz.batana.intranet_v4.R
@@ -49,7 +49,7 @@ class AdminMainStudentListFragment : Fragment(), AdminMainUserListAdapter.OnItem
     }
 
     fun putStudentsListIntoRecyclerView(studentsList: ArrayList<Any>) {
-        var layout = LinearLayoutManager(activity, LinearLayout.VERTICAL, false)
+        var layout = LinearLayoutManager(activity)
         recycler_view_student_list?.layoutManager = layout
         studentListAdapter = AdminMainUserListAdapter(studentsList, this)
         recycler_view_student_list?.adapter = studentListAdapter

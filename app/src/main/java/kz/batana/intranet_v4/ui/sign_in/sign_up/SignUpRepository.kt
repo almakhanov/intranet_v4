@@ -20,7 +20,7 @@ class SignUpRepository : SignUpContract.Repository {
         firebaseAuth.createUserWithEmailAndPassword(user.username, user.password)
                 .addOnCompleteListener {
                     if (it.isSuccessful) {
-                        currentAuthorizingUserUID = it.result.user.uid
+                        currentAuthorizingUserUID = it.result.user?.uid!!
                         presenter.onSuccess()
                     }
                     else {

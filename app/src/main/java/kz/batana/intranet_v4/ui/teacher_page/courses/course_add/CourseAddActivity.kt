@@ -1,11 +1,11 @@
 package kz.batana.intranet_v4.ui.teacher_page.courses.course_add
 
 import android.os.Bundle
-import android.support.v7.app.ActionBar
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.appcompat.app.ActionBar
 import kotlinx.android.synthetic.main.activity_course_add.*
 import kz.batana.intranet_v4.App.Companion.databaseReference
 import kz.batana.intranet_v4.App.Companion.firebaseAuth

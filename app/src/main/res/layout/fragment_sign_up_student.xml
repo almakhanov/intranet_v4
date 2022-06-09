@@ -5,14 +5,15 @@ android:layout_height="match_parent"
 xmlns:android="http://schemas.android.com/apk/res/android"
 xmlns:app="http://schemas.android.com/apk/res-auto">
 
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.sign_in.sign_up.SignUpStudentFragment">
 
-    <android.support.design.widget.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_layout_sign_up_student_name"
         android:layout_width="0dp"
         android:layout_margin="8dp"
@@ -31,9 +32,9 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
             android:hint="Full name"
             android:inputType="text"
             android:textSize="16sp" />
-    </android.support.design.widget.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <android.support.design.widget.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_layout_sign_up_student_username"
         android:layout_width="0dp"
         android:layout_margin="8dp"
@@ -51,9 +52,9 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
             android:hint="Username"
             android:inputType="textEmailAddress"
             android:textSize="16sp" />
-    </android.support.design.widget.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <android.support.design.widget.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_layout_sign_up_student_age"
         android:layout_width="0dp"
         android:layout_margin="8dp"
@@ -71,9 +72,9 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
             android:hint="Age"
             android:inputType="number"
             android:textSize="16sp" />
-    </android.support.design.widget.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <android.support.design.widget.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_layout_sign_up_student_year"
         android:layout_width="0dp"
         android:layout_margin="8dp"
@@ -91,9 +92,9 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
             android:hint="Year of study"
             android:inputType="number"
             android:textSize="16sp" />
-    </android.support.design.widget.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <android.support.design.widget.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_layout_sign_up_student_password"
         android:layout_width="0dp"
         android:layout_margin="8dp"
@@ -115,9 +116,9 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-    </android.support.design.widget.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <android.support.design.widget.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_layout_sign_up_student_confirm_password"
         android:layout_width="0dp"
         android:layout_margin="8dp"
@@ -139,8 +140,8 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-    </android.support.design.widget.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

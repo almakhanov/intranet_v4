@@ -2,10 +2,10 @@ package kz.batana.intranet_v4.ui.admin_page
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.ActionBar
-import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.ActionBar
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_admin_main.*
 import kz.batana.intranet_v4.App.Companion.firebaseAuth
 import kz.batana.intranet_v4.App.Companion.roleOfUser

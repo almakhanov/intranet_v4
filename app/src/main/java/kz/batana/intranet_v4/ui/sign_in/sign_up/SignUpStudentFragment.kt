@@ -3,10 +3,10 @@ package kz.batana.intranet_v4.ui.sign_in.sign_up
 
 import android.content.Context
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_sign_up_student.*
 import kz.batana.intranet_v4.R
 

@@ -1,9 +1,9 @@
 package kz.batana.intranet_v4.ui.admin_page
 
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_all_users_adapter_admins.view.*
 import kotlinx.android.synthetic.main.item_all_users_adapter_students.view.*
 import kotlinx.android.synthetic.main.item_all_users_adapter_teachers.view.*

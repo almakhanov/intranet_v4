@@ -14,7 +14,7 @@ import kz.batana.intranet_v4.data.Entities.Admin
 import kz.batana.intranet_v4.data.Entities.Student
 import kz.batana.intranet_v4.data.Entities.Teacher
 import kz.batana.intranet_v4.data.Entities.User
-import org.koin.standalone.KoinComponent
+import org.koin.core.component.KoinComponent
 
 class SignUpPresenter(private val repository: SignUpContract.Repository, override var view: SignUpContract.View?)
     : SignUpContract.Presenter, KoinComponent {
